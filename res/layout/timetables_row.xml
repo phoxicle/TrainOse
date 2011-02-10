@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-     
+
 <TableRow xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
-        android:layout_height="30dp">
+        android:layout_height="30dp"
+        android:gravity="center_vertical"
+        >
     
     <TextView android:id="@+id/depart"
- 	   android:width="80dp"
+    	android:layout_width="70dp"
     	/>
     <TextView android:id="@+id/arrive"
-    	android:width="80dp"
+    	android:layout_width="70dp"
     	/>
 	<TextView android:id="@+id/duration"
-		android:width="80dp"
+		android:layout_width="70dp"
 		/>
-<TextView android:id="@+id/train"
+	<TextView android:id="@+id/train"
+		android:layout_width="fill_parent"
 		/>
         	
 </TableRow>

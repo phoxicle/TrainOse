@@ -57,7 +57,7 @@ public class Timetables extends ListActivity {
         startManagingCursor(routesCursor);
         String source = routesCursor.getString(routesCursor.getColumnIndex(RoutesDbAdapter.KEY_SOURCE));
         String destination = routesCursor.getString(routesCursor.getColumnIndex(RoutesDbAdapter.KEY_DESTINATION));
-        setTitle(source + " => " + destination);
+        setTitle(source + " ⇨ " + destination);
         routesDbAdapter.close();
         
         mTimetablesDbAdapter = new TimetablesDbAdapter(this);
