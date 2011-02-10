@@ -35,7 +35,6 @@ public class RoutesDbAdapter extends AbstractDbAdapter {
     	ContentValues args = new ContentValues();
     	args.put(KEY_SOURCE,source);
     	args.put(KEY_DESTINATION,destination);
-    	args.put(KEY_TIMESTAMP, System.currentTimeMillis()/1000);
     	
     	return mDb.insert(DATABASE_TABLE, null,args);
     }
@@ -119,7 +118,7 @@ public class RoutesDbAdapter extends AbstractDbAdapter {
     
     public boolean touchTimestamp(long rowId) {
     	ContentValues args = new ContentValues();
-        args.put(KEY_TIMESTAMP,System.currentTimeMillis()/1000);
+        args.put(KEY_TIMESTAMP,System.currentTimeMillis());
 
         return mDb.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
     }
