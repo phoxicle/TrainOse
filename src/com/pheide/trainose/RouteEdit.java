@@ -19,7 +19,11 @@ public class RouteEdit extends Activity {
     
     private AutoCompleteTextView mSourceTextView;
     private AutoCompleteTextView mDestinationTextView;
-    private CheckBox mTwoWay;
+    private CheckBox mTwoWayCheckBox;
+    
+    long mRouteId;
+    Boolean mIsTwoWay;
+    long mReversedRouteId;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +43,7 @@ public class RouteEdit extends Activity {
         ArrayAdapter<String> destinationAdapter = new ArrayAdapter<String>(this, R.layout.autocomplete_item, stations);
         mDestinationTextView.setAdapter(destinationAdapter);
         
-        mTwoWay = (CheckBox) findViewById(R.id.twoway);
+        mTwoWayCheckBox = (CheckBox) findViewById(R.id.twoway);
         
         // Create confirm button
         Button confirmButton = (Button) findViewById(R.id.confirm);
@@ -58,68 +62,72 @@ public class RouteEdit extends Activity {
         String destination = mDestinationTextView.getText().toString();
         
         // Create route if it does not yet exist
-        long routeId;
         try {
         	Cursor routeCursor = routesDbAdapter.fetchBySourceAndDestination(source,destination);
         	startManagingCursor(routeCursor);
-        	routeId = routeCursor.getLong(routeCursor.getColumnIndex(RoutesDbAdapter.KEY_ROWID));
+        	mRouteId = routeCursor.getLong(routeCursor.getColumnIndex(RoutesDbAdapter.KEY_ROWID));
         	stopManagingCursor(routeCursor);
         } catch (Exception e) {
-        	routeId = routesDbAdapter.create(source,destination);
+        	mRouteId = routesDbAdapter.create(source,destination);
         }
 
-    	if (mTwoWay.isChecked()) {
+    	if (mTwoWayCheckBox.isChecked()) {
+    		mIsTwoWay = true;
     		try {
             	Cursor reversedRouteCursor = routesDbAdapter.fetchBySourceAndDestination(destination,source);
             	startManagingCursor(reversedRouteCursor);
-            	routeId = reversedRouteCursor.getLong(reversedRouteCursor.getColumnIndex(RoutesDbAdapter.KEY_ROWID));
+            	mReversedRouteId = reversedRouteCursor.getLong(reversedRouteCursor.getColumnIndex(RoutesDbAdapter.KEY_ROWID));
             	stopManagingCursor(reversedRouteCursor);
             } catch (Exception e) {
-            	routesDbAdapter.create(destination,source);
+            	mReversedRouteId = routesDbAdapter.create(destination,source);
             }
     	}
     	
     	routesDbAdapter.close();
     	
-    	syncRoute(routeId); // uses callback
+    	syncRoute(); // uses callback
     }
     
-    private void didCreateRoute(long routeId) {
+    private void didCreateRoute() {
     	Intent i = new Intent(this, Timetables.class);
-        i.putExtra(RoutesDbAdapter.KEY_ROWID, routeId);
+        i.putExtra(RoutesDbAdapter.KEY_ROWID, mRouteId);
     	setResult(RESULT_OK,i);
         finish();
     }
     
-    protected void syncRoute(long routeId) {
+    protected void syncRoute() {
         
-    	new AsyncTask<Long, Long, Long>() {
+    	new AsyncTask<Void, Void, Void>() {
     		ProgressDialog mDialog;
-    		 
+    		
+    		@Override
     		protected void onPreExecute() {
     			mDialog = ProgressDialog.show(RouteEdit.this, "", 
     					RouteEdit.this.getString(R.string.sync_in_progress), true);
     		}
-    		 
-            protected Long doInBackground(Long... routeIds){
+    		
+    		@Override
+            protected Void doInBackground(Void... params){
                 try {
-                	long routeId = routeIds[0];
                 	TimetablesSynchronizer timetablesSynchronizer = new TimetablesSynchronizer(RouteEdit.this);
-                	timetablesSynchronizer.syncTimetablesForRoute(routeId);
-                	return routeId;
+                	timetablesSynchronizer.syncTimetablesForRoute(mRouteId);
+                	
+                	if (mIsTwoWay) {
+                		timetablesSynchronizer.syncTimetablesForRoute(mReversedRouteId);
+                	}
                 } catch (Exception e) {
-                    Log.e(TAG, "Exception syncing timetable", e);
+                    Log.e(TAG, "Exception syncing timetables", e);
                 }
-                return null;
+				return null;
             }
     	 
-            @Override
-            protected void onPostExecute(Long routeId) {
+    		@Override
+            protected void onPostExecute(Void result) {
             	mDialog.dismiss();
-            	didCreateRoute(routeId);
+            	didCreateRoute();
             }
      	        
-    	}.execute(routeId);
+    	}.execute();
     	
     }
     
