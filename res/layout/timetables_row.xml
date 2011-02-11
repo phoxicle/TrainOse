@@ -16,6 +16,9 @@
 		android:layout_width="70dp"
 		/>
 	<TextView android:id="@+id/train"
+		android:layout_width="70dp"
+		/>
+	<TextView android:id="@+id/train_num"
 		android:layout_width="fill_parent"
 		/>
         	

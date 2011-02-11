@@ -71,7 +71,7 @@ public class TimetablesSynchronizer {
 	            	HashMap<String,String> currentMap = mTimetablesList.get(i);
 	            	timetablesDbAdapter.create(routeId, currentMap.get("depart"), 
 	            			currentMap.get("arrive"), currentMap.get("duration"), currentMap.get("train"),
-	            			currentMap.get("delay"));
+	            			currentMap.get("trainNum"), currentMap.get("delay"));
 	            }
 	            timetablesDbAdapter.close();
             } else {

@@ -1,5 +1,7 @@
 package com.pheide.trainose;
 
+import java.util.HashMap;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -13,6 +15,7 @@ public class TimetablesDbAdapter extends AbstractDbAdapter {
 	public static final String KEY_ARRIVE = "arrive";
 	public static final String KEY_DURATION = "duration";
 	public static final String KEY_TRAIN = "train";
+	public static final String KEY_TRAIN_NUM = "train_num";
 	public static final String KEY_DELAY = "delay";
 
     private static final String DATABASE_TABLE = "timetables";
@@ -34,17 +37,19 @@ public class TimetablesDbAdapter extends AbstractDbAdapter {
      * @param depart
      * @param arrive
      * @param train
+     * @param trainNum
      * @param delay
      * @return rowId or -1 if failed
      */
     public long create(long routeId, String depart, String arrive, 
-    		String duration, String train, String delay) {
+    		String duration, String train, String trainNum, String delay) {
     	ContentValues args = new ContentValues();
     	args.put(KEY_ROUTE,routeId);
     	args.put(KEY_DEPART,depart);
     	args.put(KEY_ARRIVE,arrive);
     	args.put(KEY_DURATION,duration);
     	args.put(KEY_TRAIN,train);
+    	args.put(KEY_TRAIN_NUM,trainNum);
     	args.put(KEY_DELAY,delay);
     	
     	return mDb.insert(DATABASE_TABLE, null,args);

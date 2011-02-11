@@ -1,5 +1,7 @@
 package com.pheide.trainose;
 
+import java.net.URL;
+import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
@@ -9,7 +11,9 @@ import android.app.Dialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.ClipboardManager;
@@ -32,12 +36,16 @@ public class Timetables extends ListActivity {
     private static final int SORT_ID = Menu.FIRST + 1;
     private static final int COPY_ID = Menu.FIRST + 2;
     private static final int DETAILS_ID = Menu.FIRST + 3;
+    private static final int SEATS_ID = Menu.FIRST + 4;
     
     static final int DIALOG_SORT_ID = 0;
     static final int DIALOG_DETAIL_ID = 1;
+    static final int DIALOG_SEATS_ID = 2;
     
 	TimetablesDbAdapter mTimetablesDbAdapter;
 	long mRouteId;
+	String mSourceTitle;
+	String mDestinationTitle;
 	long mTimetableId;
 	ProgressDialog mDialog;
 	public static List<HashMap<String,String>> timetablesList = null;
@@ -55,9 +63,9 @@ public class Timetables extends ListActivity {
         routesDbAdapter.open();
         Cursor routesCursor = routesDbAdapter.fetch(mRouteId);
         startManagingCursor(routesCursor);
-        String source = routesCursor.getString(routesCursor.getColumnIndex(RoutesDbAdapter.KEY_SOURCE));
-        String destination = routesCursor.getString(routesCursor.getColumnIndex(RoutesDbAdapter.KEY_DESTINATION));
-        setTitle(source + " ⇨ " + destination);
+        mSourceTitle = routesCursor.getString(routesCursor.getColumnIndex(RoutesDbAdapter.KEY_SOURCE));
+        mDestinationTitle = routesCursor.getString(routesCursor.getColumnIndex(RoutesDbAdapter.KEY_DESTINATION));
+        setTitle(mSourceTitle + " ⇨ " + mDestinationTitle);
         routesDbAdapter.close();
         
         mTimetablesDbAdapter = new TimetablesDbAdapter(this);
@@ -90,8 +98,8 @@ public class Timetables extends ListActivity {
 
         String[] from = new String[]{TimetablesDbAdapter.KEY_DEPART, 
         		TimetablesDbAdapter.KEY_ARRIVE, TimetablesDbAdapter.KEY_DURATION,
-        		TimetablesDbAdapter.KEY_TRAIN};
-        int[] to = new int[]{R.id.depart, R.id.arrive, R.id.duration, R.id.train};
+        		TimetablesDbAdapter.KEY_TRAIN, TimetablesDbAdapter.KEY_TRAIN_NUM};
+        int[] to = new int[]{R.id.depart, R.id.arrive, R.id.duration, R.id.train, R.id.train_num};
 
         SimpleCursorAdapter timetables = 
             new SimpleCursorAdapter(this, R.layout.timetables_row, timetablesCursor, from, to);
@@ -126,20 +134,22 @@ public class Timetables extends ListActivity {
         super.onCreateContextMenu(menu, v, menuInfo);
         menu.add(0, COPY_ID, 0, R.string.ctxmenu_copy);
         menu.add(0, DETAILS_ID, 0, R.string.ctxmenu_details);
+        menu.add(0, SEATS_ID, 0, R.string.ctxmenu_seat_availability);
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
     	AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+    	mTimetableId = info.id;
         switch(item.getItemId()) {
             case COPY_ID:
-            	// Alternatively, could copy text from visible views instead of DB
-                Cursor timetableCursor = mTimetablesDbAdapter.fetch(info.id);
+                Cursor timetableCursor = mTimetablesDbAdapter.fetch(mTimetableId);
                 startManagingCursor(timetableCursor);
                 String depart = timetableCursor.getString(timetableCursor.getColumnIndex(TimetablesDbAdapter.KEY_DEPART));
                 String arrive = timetableCursor.getString(timetableCursor.getColumnIndex(TimetablesDbAdapter.KEY_ARRIVE));
                 String duration = timetableCursor.getString(timetableCursor.getColumnIndex(TimetablesDbAdapter.KEY_DURATION));
-                String train = timetableCursor.getString(timetableCursor.getColumnIndex(TimetablesDbAdapter.KEY_TRAIN));
+                String train = timetableCursor.getString(timetableCursor.getColumnIndex(TimetablesDbAdapter.KEY_TRAIN))
+                		+ timetableCursor.getString(timetableCursor.getColumnIndex(TimetablesDbAdapter.KEY_TRAIN_NUM));
                 
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
             	clipboard.setText(depart + "- " + arrive + " (" + duration + ") " + train);
@@ -147,9 +157,10 @@ public class Timetables extends ListActivity {
             	stopManagingCursor(timetableCursor);
                 return true;
             case DETAILS_ID:
-            	mTimetableId = info.id;
             	showDialog(DIALOG_DETAIL_ID);
-               
+                return true;
+            case SEATS_ID:
+            	showDialog(DIALOG_SEATS_ID);
                 return true;
         }
         return super.onContextItemSelected(item);
@@ -157,15 +168,15 @@ public class Timetables extends ListActivity {
     
     protected Dialog onCreateDialog(int id) {
         Dialog dialog;
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+        
         switch(id) {
         case DIALOG_SORT_ID:
         	final CharSequence[] items = {this.getString(R.string.depart),
         			this.getString(R.string.arrive),this.getString(R.string.duration),
         			this.getString(R.string.train)};
-
-        	AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        	builder.setTitle(this.getString(R.string.sortBy));
-        	builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
+        	alertBuilder.setTitle(this.getString(R.string.sortBy));
+        	alertBuilder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
         	    public void onClick(DialogInterface dialog, int item) {
         	    	String sorting;
         	    	switch(item) {
@@ -188,16 +199,48 @@ public class Timetables extends ListActivity {
         	    	dialog.dismiss();
         	    }
         	});
-        	dialog = builder.create();
+        	dialog = alertBuilder.create();
             break;
         case DIALOG_DETAIL_ID:
         	dialog = new Dialog(this);
         	dialog.setTitle("Details");
         	break;
+        case DIALOG_SEATS_ID:
+        	alertBuilder.setMessage(R.string.seats_open_new_window)
+        	       .setCancelable(false)
+        	       .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+        	           public void onClick(DialogInterface dialog, int id) {
+        	                openSeatAvailability();
+        	           }
+        	       })
+        	       .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+        	           public void onClick(DialogInterface dialog, int id) {
+        	                dialog.cancel();
+        	           }
+        	       });
+        	dialog = alertBuilder.create();
+        	break;
         default:
             dialog = null;
         }
         return dialog;
+    }
+    
+    protected void openSeatAvailability() {
+    	//http://tickets.trainose.gr/dromologia/touch_seats.html?c=krathsh_wt&op=trip_available_seats&trip=56|ΑΘΗΝ|ΘΕΣΣ|20110210|19.29|20110210|23.55|11:&lang=gr
+    	HashMap<String,String> timetableMap = this.fetchAsHashMap(mTimetableId);
+    	try {
+	    	 Uri seatsAvailabilityUri = Uri.parse("http://www.pheide.com/Services/TrainOse/seatAvailability.php?"
+	         		+ "from=" + URLEncoder.encode(mSourceTitle,"UTF-8") 
+	         		+ "&to=" + URLEncoder.encode(mDestinationTitle,"UTF-8")
+	         		+ "&depart=" + timetableMap.get(TimetablesDbAdapter.KEY_DEPART)
+	         		+ "&arrive=" + timetableMap.get(TimetablesDbAdapter.KEY_ARRIVE)
+	         		+ "&trainNum=" + timetableMap.get(TimetablesDbAdapter.KEY_TRAIN_NUM));
+	    	 Intent intent = new Intent(Intent.ACTION_VIEW, seatsAvailabilityUri);
+	    	 startActivity(intent);
+    	} catch (Exception e) {
+    		//TODO log encoding exception
+    	}
     }
     
     protected void onPrepareDialog(int id, Dialog dialog) {
@@ -213,6 +256,24 @@ public class Timetables extends ListActivity {
                 dialog.setContentView(tv);
     			break;
     	}
+    }
+    
+    public HashMap<String,String> fetchAsHashMap(long timetableId) {
+    	Cursor timetableCursor = mTimetablesDbAdapter.fetch(timetableId);
+        startManagingCursor(timetableCursor);
+        
+    	HashMap<String,String> timetableMap = new HashMap<String,String>();
+    	String[] mapKeys = { TimetablesDbAdapter.KEY_DEPART , TimetablesDbAdapter.KEY_ARRIVE,
+    			TimetablesDbAdapter.KEY_DURATION, TimetablesDbAdapter.KEY_TRAIN,
+    			TimetablesDbAdapter.KEY_TRAIN_NUM, TimetablesDbAdapter.KEY_DELAY
+    	};
+    	for (int i = 0; i < mapKeys.length; i++) {
+    		String key = mapKeys[i];
+    		timetableMap.put(key, timetableCursor.getString(timetableCursor.getColumnIndex(key)));
+    	}
+    	
+    	stopManagingCursor(timetableCursor);
+    	return timetableMap;
     }
     
     protected void syncRoute() {

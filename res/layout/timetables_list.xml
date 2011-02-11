@@ -15,7 +15,7 @@
 		    />
 	    <TextView
 		    android:id="@+id/last_synced"
-		    android:layout_span="3"
+		    android:layout_span="4"
 		    />
 	        	
 	</TableRow>

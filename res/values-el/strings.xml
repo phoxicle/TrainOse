@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ΟΣΕ Δρομολόγια</string>
+    <string name="yes">Ναι</string>
+    <string name="no">Όχι</string>
     
     <string name="optmenu_new_route">Νέα διαδρομή</string>
     <string name="optmenu_sync_all">Συγχρονισμός όλων</string>
@@ -17,6 +19,7 @@
     <string name="optmenu_sort">Ταξινόμηση</string>
     <string name="ctxmenu_copy">Αντιγραφή</string>
     <string name="ctxmenu_details">Προβολή λεπτομεριών</string>
+    <string name="ctxmenu_seat_availability">Έλεγχος πληρότητας</string>
     <string name="no_timetables">Κανένα δρομολόγιο... περίεργο</string>
     <string name="sync_in_progress">Συγχρονίζει. Παρακαλώ περιμένετε...</string>
     <string name="depart">Φεύγει</string>
