@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
-public class TimetableCursorAdapter extends CursorAdapter {
+public class TimetablesCursorAdapter extends CursorAdapter {
 	
 	LayoutInflater mInflater;
 	
@@ -18,7 +18,7 @@ public class TimetableCursorAdapter extends CursorAdapter {
 	int mIdxTrain;
 	int mIdxTrainNum;
 
-	public TimetableCursorAdapter(Context context, Cursor cursor) {
+	public TimetablesCursorAdapter(Context context, Cursor cursor) {
 		super(context, cursor);
 		
 		mInflater = LayoutInflater.from(context); 

@@ -95,17 +95,7 @@ public class Timetables extends ListActivity {
     private void populateListSorted(String sorting) {
         Cursor timetablesCursor = mTimetablesDbAdapter.fetchByRouteSorted(mRouteId, sorting);
         startManagingCursor(timetablesCursor);
-
-        TimetableCursorAdapter timetables = new TimetableCursorAdapter(this,timetablesCursor);
-        
-        /*
-         String[] from = new String[]{TimetablesDbAdapter.KEY_DEPART, 
-        		TimetablesDbAdapter.KEY_ARRIVE, TimetablesDbAdapter.KEY_DURATION,
-        		TimetablesDbAdapter.KEY_TRAIN, TimetablesDbAdapter.KEY_TRAIN_NUM};
-        int[] to = new int[]{R.id.depart, R.id.arrive, R.id.duration, R.id.train, R.id.train_num}; 
-        SimpleCursorAdapter timetables = 
-            new SimpleCursorAdapter(this, R.layout.timetables_row, timetablesCursor, from, to);
-            */
+        TimetablesCursorAdapter timetables = new TimetablesCursorAdapter(this,timetablesCursor);
         setListAdapter(timetables);
     }
     
