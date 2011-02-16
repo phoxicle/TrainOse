@@ -78,7 +78,6 @@ public class Timetables extends ListActivity {
     private void populateList() {
         this.populateListSorted(null);
         this.setLastSynced();
-        
     }
     
     private void setLastSynced() {
@@ -126,7 +125,7 @@ public class Timetables extends ListActivity {
             ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         menu.add(0, COPY_ID, 0, R.string.ctxmenu_copy);
-        menu.add(0, DETAILS_ID, 0, R.string.ctxmenu_details);
+        //menu.add(0, DETAILS_ID, 0, R.string.ctxmenu_details);
         menu.add(0, SEATS_ID, 0, R.string.ctxmenu_seat_availability);
     }
 
