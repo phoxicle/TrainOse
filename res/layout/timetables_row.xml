@@ -7,19 +7,21 @@
         >
     
     <TextView android:id="@+id/depart"
-    	android:layout_width="70dp"
+    	android:layout_weight="1"
+    	android:paddingLeft="10dp"
     	/>
     <TextView android:id="@+id/arrive"
-    	android:layout_width="70dp"
+    	android:layout_weight="1"
+    	android:paddingLeft="10dp"
     	/>
 	<TextView android:id="@+id/duration"
-		android:layout_width="70dp"
+		android:layout_weight="1"
+		android:paddingLeft="10dp"
 		/>
+		
 	<TextView android:id="@+id/train"
-		android:layout_width="70dp"
-		/>
-	<TextView android:id="@+id/train_num"
-		android:layout_width="fill_parent"
+		android:layout_weight="1"
+		android:paddingLeft="10dp"
 		/>
         	
 </TableRow>

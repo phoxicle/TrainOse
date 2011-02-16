@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">OSE Train Routes</string>
+    <string name="app_author">Created by: Christine Gerpheide</string>
+    <string name="app_desc">OSE Train Routes is an unofficial application for viewing OSE\'s train schedules. The application downloads the latest routes, and then stores them locally on your mobile device to allow for offline access later.</string>
+    <string name="app_moreinfo">For more info, visit http://pheide.com</string>
+    <string name="version">Version: </string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     
     <string name="optmenu_new_route">New Route</string>
     <string name="optmenu_sync_all">Sync All</string>
+    <string name="optmenu_about">About</string>
     <string name="ctxmenu_delete_route">Delete</string>
     <string name="no_routes">No Routes Saved</string>
     

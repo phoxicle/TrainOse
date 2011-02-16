@@ -1,52 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    >
-    
-    <TableRow xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:gravity="right"
-        >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical">
+
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:gravity="right">
     
 	    <TextView 
 		    android:text="@string/last_synced"
+		    android:layout_width="wrap_content"
+       		android:layout_height="wrap_content"
+       		android:paddingRight="10dp"
 		    />
 	    <TextView
 		    android:id="@+id/last_synced"
-		    android:layout_span="4"
+		    android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
 		    />
+	</LinearLayout>
 	        	
-	</TableRow>
+	<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    >
     
     <TableRow xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:stretchColumns="4"	
         >
     
 	    <TextView 
 		    android:text="@string/depart"
 		    android:textStyle="bold"
-		    android:layout_width="70dp"
 		    android:textColor="#ffffff"
+		    android:layout_weight="1"
 		    />
 	    <TextView
 		    android:text="@string/arrive"
 		    android:textStyle="bold"
-		    android:layout_width="70dp"
 		    android:textColor="#ffffff"
+		    android:layout_weight="1"
 		    />
 		<TextView
 		    android:text="@string/duration"
 		    android:textStyle="bold"
-		    android:layout_width="70dp"
 		    android:textColor="#ffffff"
+		    android:layout_weight="1"
 		    />
 		<TextView
 		    android:text="@string/train"
 			android:textStyle="bold"  
 			android:textColor="#ffffff"
+			android:layout_weight="1"
 			/>
 	        	
 	</TableRow>
@@ -61,8 +70,11 @@
 	  	<TextView android:id="@+id/android:empty"
 	          android:layout_width="wrap_content"
 	        	android:layout_height="wrap_content"
-	        	android:text="@string/no_timetables"/>
+	        	android:text="@string/no_timetables"
+	        	/>
      
      </LinearLayout>
 	
 </TableLayout>
+
+</LinearLayout>

@@ -1,11 +1,18 @@
 package com.pheide.trainose;
 
+import android.app.Dialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -15,6 +22,7 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.TextView;
 
 public class Routes extends ListActivity {
 	
@@ -26,6 +34,7 @@ public class Routes extends ListActivity {
 	private static final int NEW_ID = Menu.FIRST;
     private static final int DELETE_ID = Menu.FIRST + 1;
     private static final int SYNC_ID = Menu.FIRST + 2;
+    private static final int ABOUT_ID = Menu.FIRST + 3;
     
 	RoutesDbAdapter mRoutesDbAdapter;
 	
@@ -60,6 +69,7 @@ public class Routes extends ListActivity {
         super.onCreateOptionsMenu(menu);
         menu.add(0, NEW_ID, 0, R.string.optmenu_new_route);
         menu.add(0, SYNC_ID, 0, R.string.optmenu_sync_all);
+        menu.add(0, ABOUT_ID, 0, R.string.optmenu_about);
         return true;
     }
 
@@ -71,6 +81,9 @@ public class Routes extends ListActivity {
                 return true;
             case SYNC_ID:
                 syncAllRoutes();
+                return true;
+            case ABOUT_ID:
+                showAboutPage();
                 return true;
         }
 
@@ -109,6 +122,29 @@ public class Routes extends ListActivity {
     private void newRoute() {
     	Intent i = new Intent(this, RouteEdit.class);
         startActivityForResult(i, ACTIVITY_CREATE);
+    }
+    
+    private void showAboutPage() {
+    	Dialog dialog = new Dialog(this);
+
+    	dialog.setContentView(R.layout.about_dialog);
+    	dialog.setTitle("About OSE Train Routes");
+
+    	TextView versionTextView = (TextView) dialog.findViewById(R.id.version);
+        try {
+        	PackageInfo packageInfo = getPackageManager().getPackageInfo(getApplicationInfo().packageName, 0);
+        	versionTextView.setText(packageInfo.versionName + " (" + packageInfo.versionCode + ")");
+        	
+        	TextView moreInfoTextView = (TextView) dialog.findViewById(R.id.more_info);
+        	final SpannableString s = new SpannableString(this.getText(R.string.app_moreinfo));
+        	Linkify.addLinks(s, Linkify.WEB_URLS);
+        	moreInfoTextView.setText(s);
+        	moreInfoTextView.setMovementMethod(LinkMovementMethod.getInstance());
+        } catch (NameNotFoundException e) {
+            // TODO Log error
+        }
+    	
+    	dialog.show();
     }
     
     @Override
