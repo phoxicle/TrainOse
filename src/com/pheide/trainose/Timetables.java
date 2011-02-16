@@ -88,7 +88,7 @@ public class Timetables extends ListActivity {
         long timestamp = routesCursor.getLong(routesCursor.getColumnIndex(RoutesDbAdapter.KEY_TIMESTAMP));
         Timestamp time = new Timestamp(timestamp);
         TextView lastSyncedTextView = (TextView) findViewById(R.id.last_synced);
-        lastSyncedTextView.setText(time.toString());
+        lastSyncedTextView.setText(time.toLocaleString());
         routesDbAdapter.close();
     }
     
