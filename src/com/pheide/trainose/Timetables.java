@@ -226,7 +226,7 @@ public class Timetables extends ListActivity {
     }
     
     protected void openSeatAvailability() {
-    	//http://tickets.trainose.gr/dromologia/touch_seats.html?c=krathsh_wt&op=trip_available_seats&trip=56|ΑΘΗΝ|ΘΕΣΣ|20110210|19.29|20110210|23.55|11:&lang=gr
+    	//http://tickets.trainose.gr/dromologia/touch_seats.html?c=krathsh_wt&op=trip_available_seats&trip=56|ŒëŒòŒóŒù|ŒòŒïŒ£Œ£|20110210|19.29|20110210|23.55|11:&lang=gr
     	HashMap<String,String> timetableMap = this.fetchAsHashMap(mTimetableId);
     	try {
 	    	 Uri seatsAvailabilityUri = Uri.parse("http://www.pheide.com/Services/TrainOse/seatAvailability.php?"
