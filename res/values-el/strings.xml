@@ -12,7 +12,7 @@
     <string name="optmenu_new_route">Νέα διαδρομή</string>
     <string name="optmenu_sync_all">Συγχρονισμός όλων</string>
     <string name="optmenu_about">Περί</string>
-    <string name="ctxmenu_delete_route">Διαγαφή</string>
+    <string name="ctxmenu_delete_route">Διαγραφή</string>
     <string name="no_routes">Καμία διαδρομή</string>
     
     <string name="new_route">Νέα διαδρομή</string>
