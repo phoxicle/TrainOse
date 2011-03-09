@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Δρομολόγια Τρένου Ελλάδος</string>
-    <string name="app_author"><b>Δημιουργήθηκε από:</b> Κριστίν Γκερφάιντα</string>
+    <string name="app_author"><b>Δημιουργήθηκε από: </b>Κριστίν Γκερφάιντα</string>
     <string name="app_desc_title">Περί</string>
-    <string name="app_desc">Δρομολόγια Τρένου Ελλάδος είναι μια ανεπίσημη εφαρμογή για την προβολή δρομολογίων ΟΣΕ. Η εφαρμογή κατεβάζει τις διαδρομές, και τις αποθηκεύει τοπικά στη συσκευή σας για να έχει πρόσβαση αργότερα εκτός σύνδεσης. \n\nΓια κάθε απορία ή πρόταση, μη δηστάσετε να μου στείλετε ένα μεηλ και μπορούμε βέβαια να συνεργαστούμε. Ο κώδικας είναι διαθέσιμος σύμφωνα με τους όρους του MIT License στο https://github.com/phoxicle/TrainOse</string>
-    <string name="app_moreinfo">Για περισσότερες πληροφορίες, να δείτε http://pheide.com/go/code</string>
-    <string name="version"><b>Έκδωση:</b> </string>
+    <string name="app_desc">Δρομολόγια Τρένου Ελλάδος είναι μια ανεπίσημη εφαρμογή για την προβολή δρομολογίων του ΟΣΕ. Η εφαρμογή κατεβάζει τις διαδρομές, και τις αποθηκεύει τοπικά στη συσκευή σας για να έχει πρόσβαση αργότερα εκτός σύνδεσης. \n\nΓια κάθε απορία ή πρόταση, μη διστάσετε να μου στείλετε ένα e-mail και μπορούμε βέβαια να συνεργαστούμε. Ο κώδικας είναι διαθέσιμος σύμφωνα με τους όρους του MIT License στο https://github.com/phoxicle/TrainOse</string>
+    <string name="app_moreinfo">Για περισσότερες πληροφορίες, δείτε το http://pheide.com/go/code</string>
+    <string name="version"><b>Έκδοση:</b> </string>
     <string name="yes">Ναι</string>
     <string name="no">Όχι</string>
     
@@ -24,9 +24,9 @@
     <string name="optmenu_sync">Συγχρονίστε τώρα</string>
     <string name="optmenu_sort">Ταξινόμηση</string>
     <string name="ctxmenu_copy">Αντιγραφή</string>
-    <string name="ctxmenu_details">Προβολή λεπτομεριών</string>
+    <string name="ctxmenu_details">Προβολή λεπτομερειών</string>
     <string name="ctxmenu_seat_availability">Έλεγχος πληρότητας</string>
-    <string name="seats_open_new_window">Θα ανοιχθεί ένας ιστότοπος στο πρόγραμμα περιήγησης κινητού. Θέλετε να συνεχίσετε;</string>
+    <string name="seats_open_new_window">Θα ανοίξει ένας ιστότοπος στο πρόγραμμα περιήγησης κινητού. Θέλετε να συνεχίσετε;</string>
     <string name="no_timetables">Κανένα δρομολόγιο... περίεργο</string>
     <string name="sync_in_progress">Συγχρονίζει. Παρακαλώ περιμένετε...</string>
     <string name="depart">Φεύγει</string>
