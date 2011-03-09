@@ -81,8 +81,6 @@ public class TimetablesSynchronizer {
 	            			currentMap.get("trainNum"), currentMap.get("delay"));
 	            }
 	            timetablesDbAdapter.close();
-            } else {
-            	throw new SAXException(); // no routes in XML
             }
             
             // Update date last synced for this route
