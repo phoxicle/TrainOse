@@ -1,2 +1,6 @@
-Download the bin/TrainOse.apk file onto your Android phone to install. If it was previously installed and you see an error, that means the database changed and you'll have to uninstall the old version first.
+This project as distributed under the MIT license. Please see LICENSE.txt for
+more details.
 
+Source code for this application can be found at 
+https://github.com/phoxicle/TrainOse. Feel free to raise any issues in the 
+bugtracker there or to contribute your own code and suggestions :)

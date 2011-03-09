@@ -1,3 +1,10 @@
+/**
+ * Copyright (c) 2011 Christine Gerpheide <christine.ger@pheide.com>
+ * 
+ * This code is distributed under the MIT License. Please see LICENSE.txt
+ * for more details.
+ */
+
 package com.pheide.trainose;
 
 import android.content.ContentValues;
