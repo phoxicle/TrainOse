@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ΟΣΕ Δρομολόγια</string>
+    <string name="app_author">Δημιουργήθηκε από: Κριστίν Γκερφάιντα</string>
+    <string name="app_desc_title">Περί ΟΣΕ Δρομολόγια</string>
+    <string name="app_desc">ΟΣΕ Δρομολόγια είναι μια ανεπίσημη εφαρμογή για την προβολή δρομολογίωνν ΟΣΕ. Η εφαρμογή κατεβάζει τις διαδρομές, και τις αποθηκεύει τοπικά στη συσκευή σας για να έχει πρόσβαση αργότερα εκτός σύνδεσης. \n\nΓια κάθε απορία ή πρόταση, μη δηστάσετε να μου στείλετε ένα μεηλ και μπορούμε βέβαια να συνεργαστούμε. Ο κώδικας είναι διαθέσιμος σύμφωνα με τους όρους του MIT License στο https://github.com/phoxicle/TrainOse</string>
+    <string name="app_moreinfo">Για περισσότερες πληροφορίες, να δείτε http://pheide.com/go/code</string>
+    <string name="version">Έκδωση: </string>
     <string name="yes">Ναι</string>
     <string name="no">Όχι</string>
     
     <string name="optmenu_new_route">Νέα διαδρομή</string>
     <string name="optmenu_sync_all">Συγχρονισμός όλων</string>
+    <string name="optmenu_about">Περί</string>
     <string name="ctxmenu_delete_route">Διαγαφή</string>
     <string name="no_routes">Καμία διαδρομή</string>
     
@@ -20,6 +26,7 @@
     <string name="ctxmenu_copy">Αντιγραφή</string>
     <string name="ctxmenu_details">Προβολή λεπτομεριών</string>
     <string name="ctxmenu_seat_availability">Έλεγχος πληρότητας</string>
+    <string name="seats_open_new_window">Θα ανοιχθεί ένας ιστότοπος στο πρόγραμμα περιήγησης κινητού. Θέλετε να συνεχίσετε;</string>
     <string name="no_timetables">Κανένα δρομολόγιο... περίεργο</string>
     <string name="sync_in_progress">Συγχρονίζει. Παρακαλώ περιμένετε...</string>
     <string name="depart">Φεύγει</string>
@@ -27,5 +34,6 @@
     <string name="duration">Διάρκεια</string>
     <string name="train">Τρένο</string>
     <string name="sortBy">Ταξινόμηση κατά</string>
+    <string name="last_synced">Προηγούμενος συγχρονισμός:</string>
     
 </resources>

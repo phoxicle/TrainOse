@@ -124,27 +124,35 @@ public class Routes extends ListActivity {
         startActivityForResult(i, ACTIVITY_CREATE);
     }
     
-    private void showAboutPage() {
+    private void showAboutPage() { //TODO put these in some kind of "view"
     	Dialog dialog = new Dialog(this);
 
     	dialog.setContentView(R.layout.about_dialog);
-    	dialog.setTitle("About OSE Train Routes");
+    	dialog.setTitle(R.string.app_desc_title);
 
     	TextView versionTextView = (TextView) dialog.findViewById(R.id.version);
         try {
         	PackageInfo packageInfo = getPackageManager().getPackageInfo(getApplicationInfo().packageName, 0);
         	versionTextView.setText(packageInfo.versionName + " (" + packageInfo.versionCode + ")");
+
+        	TextView appDescTextView = (TextView) dialog.findViewById(R.id.app_desc);
+        	this.linkifyTextViewWithText(appDescTextView, R.string.app_desc);
         	
         	TextView moreInfoTextView = (TextView) dialog.findViewById(R.id.more_info);
-        	final SpannableString s = new SpannableString(this.getText(R.string.app_moreinfo));
-        	Linkify.addLinks(s, Linkify.WEB_URLS);
-        	moreInfoTextView.setText(s);
-        	moreInfoTextView.setMovementMethod(LinkMovementMethod.getInstance());
+        	this.linkifyTextViewWithText(moreInfoTextView, R.string.app_moreinfo);
         } catch (NameNotFoundException e) {
             // TODO Log error
         }
     	
     	dialog.show();
+    }
+    
+    // TODO view
+    protected void linkifyTextViewWithText(TextView textView, int stringResId) {
+    	SpannableString s = new SpannableString(this.getText(stringResId));
+    	Linkify.addLinks(s, Linkify.WEB_URLS);
+    	textView.setText(s);
+    	textView.setMovementMethod(LinkMovementMethod.getInstance());
     }
     
     @Override
