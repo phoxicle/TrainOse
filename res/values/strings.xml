@@ -26,7 +26,7 @@
     <string name="ctxmenu_copy">Copy</string>
     <string name="ctxmenu_details">View Details</string>
     <string name="ctxmenu_seat_availability">Check Seat Availability</string>
-    <string name="seats_open_new_window">This will open a website in your phone\'s browser. Do you want to continue?</string>
+    <string name="seats_open_new_window">This will open the OSE website in your phone\'s browser. Do you want to continue?</string>
     <string name="no_timetables">No timetables... strange</string>
     <string name="sync_in_progress">Syncing. Please wait...</string>
     <string name="depart">Departs</string>
