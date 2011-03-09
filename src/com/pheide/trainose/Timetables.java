@@ -92,9 +92,11 @@ public class Timetables extends ListActivity {
         routesDbAdapter.open();
         Cursor routesCursor = routesDbAdapter.fetch(mRouteId);
         long timestamp = routesCursor.getLong(routesCursor.getColumnIndex(RoutesDbAdapter.KEY_TIMESTAMP));
-        Timestamp time = new Timestamp(timestamp);
-        TextView lastSyncedTextView = (TextView) findViewById(R.id.last_synced);
-        lastSyncedTextView.setText(time.toLocaleString());
+        if (timestamp > 0) {
+        	Timestamp time = new Timestamp(timestamp);
+        	TextView lastSyncedTextView = (TextView) findViewById(R.id.last_synced);
+        	lastSyncedTextView.setText(time.toLocaleString());
+        }
         routesDbAdapter.close();
     }
     
