@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">OSE Train Routes</string>
+    <string name="app_name">Greece Train Schedules</string>
     <string name="app_author"><b>Created by:</b> Christine Gerpheide</string>
-    <string name="app_desc_title">About OSE Train Routes</string>
-    <string name="app_desc">OSE Train Routes is an unofficial application for viewing OSE\'s train schedules in Greece. The application downloads the latest routes, and then stores them locally on your mobile device to allow for offline access later. \n\nIf you have questions or suggestions, just send me a message and I\'d be more than happy to collaborate with you. You can raise any issues at https://github.com/phoxicle/TrainOse</string>
+    <string name="app_desc_title">About Greece Train Schedules</string>
+    <string name="app_desc">Greece Train Schedules is an unofficial application for viewing schedules of Greece\'s national rail system (OSE). The application downloads the latest routes, and then stores them locally on your mobile device to allow for offline access later. \n\nIf you have questions or suggestions, just send me a message and I\'d be more than happy to collaborate with you. You can raise any issues at https://github.com/phoxicle/TrainOse</string>
     <string name="app_moreinfo">For more info, please visit http://pheide.com/go/code</string>
     <string name="version"><b>Version:</b> </string>
     <string name="yes">Yes</string>
@@ -60,8 +60,10 @@
 <item>Aggeie</item> 
 <item>Άδενδρο</item> 
 <item>Adendro</item> 
+<!-- 
 <item>Αεροδρόμιο Σπάτων ✈</item> 
 <item>Athens International Airport ✈</item> 
+ -->
 <item>Αθήνα</item> 
 <item>Athens</item> 
 <item>Αιγίνιο</item> 
