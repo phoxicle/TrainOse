@@ -14,10 +14,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-    <activity android:name=".RouteEdit"></activity>
-<activity android:name=".Timetables"></activity>
-</application>
-
-
+    	<activity android:name=".RouteEdit"></activity>
+		<activity android:name=".Timetables"></activity>
+	</application>
 </manifest> 
