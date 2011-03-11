@@ -7,6 +7,8 @@
 
 package com.pheide.trainose;
 
+import java.util.Arrays;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -19,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.Toast;
 
 public class RouteEdit extends Activity {
 	
@@ -56,9 +59,24 @@ public class RouteEdit extends Activity {
         Button confirmButton = (Button) findViewById(R.id.confirm);
         confirmButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-            	createRoute();
+            	if (stationsAreValid()) {
+            		createRoute();
+            	} else {
+            		Toast.makeText(RouteEdit.this, R.string.invalid_stations, Toast.LENGTH_SHORT).show();
+            	}
             }
         });
+    }
+    
+    private Boolean stationsAreValid() { // Android really ought to handle this itself..
+    	String[] stations = getResources().getStringArray(R.array.stations_array);
+        Arrays.sort(stations);
+        if (Arrays.binarySearch(stations, mSourceTextView.getText().toString()) > 0
+        	&& Arrays.binarySearch(stations, mDestinationTextView.getText().toString()) > 0) {
+            return true;
+        } else {
+        	return false;
+        }
     }
     
     private void createRoute() {

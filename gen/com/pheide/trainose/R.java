@@ -45,34 +45,49 @@ public final class R {
         public static final int app_desc=0x7f040003;
         public static final int app_desc_title=0x7f040002;
         public static final int app_moreinfo=0x7f040004;
+        /**  Global 
+ Global 
+         */
         public static final int app_name=0x7f040000;
-        public static final int arrive=0x7f04001b;
-        public static final int ctxmenu_copy=0x7f040014;
+        public static final int arrive=0x7f04001c;
+        public static final int ctxmenu_copy=0x7f040015;
         public static final int ctxmenu_delete_route=0x7f04000b;
-        public static final int ctxmenu_details=0x7f040015;
-        public static final int ctxmenu_seat_availability=0x7f040016;
-        public static final int depart=0x7f04001a;
+        public static final int ctxmenu_details=0x7f040016;
+        public static final int ctxmenu_seat_availability=0x7f040017;
+        public static final int depart=0x7f04001b;
         public static final int destination=0x7f040010;
         public static final int download=0x7f04000e;
-        public static final int duration=0x7f04001c;
-        public static final int exception=0x7f040022;
-        public static final int exception_network=0x7f040020;
-        public static final int exception_server=0x7f040021;
-        public static final int last_synced=0x7f04001f;
+        public static final int duration=0x7f04001d;
+        public static final int exception=0x7f040023;
+        /**  Exceptions 
+         */
+        public static final int exception_network=0x7f040021;
+        public static final int exception_server=0x7f040022;
+        public static final int invalid_stations=0x7f040012;
+        public static final int last_synced=0x7f040020;
+        /**  New Route (RouteEdit.java) 
+ New Route (RouteEdit.java) 
+         */
         public static final int new_route=0x7f04000d;
         public static final int no=0x7f040007;
         public static final int no_routes=0x7f04000c;
-        public static final int no_timetables=0x7f040018;
+        public static final int no_timetables=0x7f040019;
         public static final int optmenu_about=0x7f04000a;
+        /**  Routes Listing (Routes.java) 
+ Routes Listing (Routes.java) 
+         */
         public static final int optmenu_new_route=0x7f040008;
-        public static final int optmenu_sort=0x7f040013;
-        public static final int optmenu_sync=0x7f040012;
+        public static final int optmenu_sort=0x7f040014;
+        /**  Timetables Listing (Timetables.java) 
+ Timetables Listing (Timetables.java) 
+         */
+        public static final int optmenu_sync=0x7f040013;
         public static final int optmenu_sync_all=0x7f040009;
-        public static final int seats_open_new_window=0x7f040017;
-        public static final int sortBy=0x7f04001e;
+        public static final int seats_open_new_window=0x7f040018;
+        public static final int sortBy=0x7f04001f;
         public static final int source=0x7f04000f;
-        public static final int sync_in_progress=0x7f040019;
-        public static final int train=0x7f04001d;
+        public static final int sync_in_progress=0x7f04001a;
+        public static final int train=0x7f04001e;
         public static final int twoway=0x7f040011;
         public static final int version=0x7f040005;
         public static final int yes=0x7f040006;

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<!-- Global -->
     <string name="app_name">Δρομολόγια Τρένου Ελλάδος</string>
     <string name="app_author"><b>Δημιουργήθηκε από: </b>Κριστίν Γκερφάιντα</string>
     <string name="app_desc_title">Περί</string>
@@ -9,18 +10,22 @@
     <string name="yes">Ναι</string>
     <string name="no">Όχι</string>
     
+    <!-- Routes Listing (Routes.java) -->
     <string name="optmenu_new_route">Νέα διαδρομή</string>
     <string name="optmenu_sync_all">Συγχρονισμός όλων</string>
     <string name="optmenu_about">Περί</string>
     <string name="ctxmenu_delete_route">Διαγραφή</string>
     <string name="no_routes">Καμία διαδρομή</string>
     
+    <!-- New Route (RouteEdit.java) -->
     <string name="new_route">Νέα διαδρομή</string>
     <string name="download">Κατεβάστε διαδρομή</string>
     <string name="source">Από</string>
     <string name="destination">Μέχρι</string>
     <string name="twoway">Με επιστροφή</string>
+    <string name="invalid_stations">Οι σταθμοί δεν είναι σωστοί</string>
     
+    <!-- Timetables Listing (Timetables.java) -->
     <string name="optmenu_sync">Συγχρονίστε τώρα</string>
     <string name="optmenu_sort">Ταξινόμηση</string>
     <string name="ctxmenu_copy">Αντιγραφή</string>
