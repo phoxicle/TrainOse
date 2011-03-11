@@ -28,6 +28,8 @@
     <!-- Timetables Listing (Timetables.java) -->
     <string name="optmenu_sync">Συγχρονίστε τώρα</string>
     <string name="optmenu_sort">Ταξινόμηση</string>
+    <string name="optmenu_delete">Διαγραφή</string>
+    <string name="confirm_delete">Είστε σίγουρος/η ότι θέλετε να σβήσετε αυτή τη διαδρομή;</string>
     <string name="ctxmenu_copy">Αντιγραφή</string>
     <string name="ctxmenu_details">Προβολή λεπτομερειών</string>
     <string name="ctxmenu_seat_availability">Έλεγχος πληρότητας</string>

@@ -44,10 +44,12 @@ public class Timetables extends ListActivity {
     private static final int COPY_ID = Menu.FIRST + 2;
     private static final int DETAILS_ID = Menu.FIRST + 3;
     private static final int SEATS_ID = Menu.FIRST + 4;
+    private static final int DELETE_ID = Menu.FIRST + 5;
     
     static final int DIALOG_SORT_ID = 0;
     static final int DIALOG_DETAIL_ID = 1;
     static final int DIALOG_SEATS_ID = 2;
+    static final int DIALOG_DELETE_ID = 3;
     
 	TimetablesDbAdapter mTimetablesDbAdapter;
 	long mRouteId;
@@ -112,6 +114,7 @@ public class Timetables extends ListActivity {
         super.onCreateOptionsMenu(menu);
         menu.add(0, SYNC_ID, 0, R.string.optmenu_sync);
         menu.add(0, SORT_ID, 0, R.string.optmenu_sort);
+        menu.add(0, DELETE_ID, 0, R.string.optmenu_delete);
         return true;
     }
 
@@ -123,6 +126,9 @@ public class Timetables extends ListActivity {
                 return true;
             case SORT_ID:
             	showDialog(DIALOG_SORT_ID);
+                return true;
+            case DELETE_ID:
+            	showDialog(DIALOG_DELETE_ID);
                 return true;
         }
 
@@ -212,6 +218,24 @@ public class Timetables extends ListActivity {
         	       .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
         	           public void onClick(DialogInterface dialog, int id) {
         	                openSeatAvailability();
+        	           }
+        	       })
+        	       .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+        	           public void onClick(DialogInterface dialog, int id) {
+        	                dialog.cancel();
+        	           }
+        	       });
+        	dialog = alertBuilder.create();
+        	break;
+        case DIALOG_DELETE_ID:
+        	alertBuilder.setMessage(R.string.confirm_delete)
+        	       .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+        	           public void onClick(DialogInterface dialog, int id) {
+        	        	   RoutesDbAdapter routesDbAdapter = new RoutesDbAdapter(Timetables.this);
+        	               routesDbAdapter.open();
+        	               routesDbAdapter.delete(mRouteId);
+        	               routesDbAdapter.close();
+        	               Timetables.this.finish();
         	           }
         	       })
         	       .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {

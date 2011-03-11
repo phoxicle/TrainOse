@@ -54,7 +54,13 @@ public class RoutesDbAdapter extends AbstractDbAdapter {
      * @return true if deleted, false otherwise
      */
     public boolean delete(long rowId) {
-    	return mDb.delete(DATABASE_TABLE, KEY_ROWID + "=" + rowId, null) > 0;
+    	 // Cascade first
+    	 TimetablesDbAdapter timetablesDbAdapter = new TimetablesDbAdapter(mCtx);
+         timetablesDbAdapter.open();
+         timetablesDbAdapter.deleteByRoute(rowId);
+         timetablesDbAdapter.close();
+         
+         return mDb.delete(DATABASE_TABLE, KEY_ROWID + "=" + rowId, null) > 0;
     }
 
     /**

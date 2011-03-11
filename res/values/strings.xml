@@ -28,6 +28,8 @@
     <!-- Timetables Listing (Timetables.java) -->
     <string name="optmenu_sync">Sync</string>
     <string name="optmenu_sort">Sort By</string>
+    <string name="optmenu_delete">Delete</string>
+    <string name="confirm_delete">Are you sure you want to delete this route?</string>
     <string name="ctxmenu_copy">Copy</string>
     <string name="ctxmenu_details">View Details</string>
     <string name="ctxmenu_seat_availability">Check Seat Availability</string>

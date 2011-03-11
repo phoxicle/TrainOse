@@ -111,11 +111,6 @@ public class Routes extends ListActivity {
             	//TODO move to model of some sort?
                 AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
                 mRoutesDbAdapter.delete(info.id);
-                TimetablesDbAdapter timetablesDbAdapter = new TimetablesDbAdapter(this);
-                timetablesDbAdapter.open();
-                timetablesDbAdapter.deleteByRoute(info.id);
-                timetablesDbAdapter.close();
-                
                 populateList();
                 return true;
         }
