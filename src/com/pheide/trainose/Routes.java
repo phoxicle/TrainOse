@@ -49,11 +49,15 @@ public class Routes extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.routes_list);
+        
         mRoutesDbAdapter = new RoutesDbAdapter(this);
         mRoutesDbAdapter.open();
+        
         populateList();
         registerForContextMenu(getListView());
     }
+    
+    /* Lists */
     
     private void populateList() {
         Cursor routesCursor = mRoutesDbAdapter.fetchAll();
@@ -71,6 +75,29 @@ public class Routes extends ListActivity {
         showTimetables(id);
     }
     
+    /* Context menu */
+    
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+            ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.add(0, DELETE_ID, 0, R.string.ctxmenu_delete_route);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case DELETE_ID:
+                AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+                mRoutesDbAdapter.delete(info.id);
+                populateList();
+                return true;
+        }
+        return super.onContextItemSelected(item);
+    }
+    
+    /* Options menu */
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -84,37 +111,17 @@ public class Routes extends ListActivity {
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
         switch(item.getItemId()) {
             case NEW_ID:
-                newRoute();
+                showNewRoute();
                 return true;
             case SYNC_ID:
                 syncAllRoutes();
                 return true;
             case ABOUT_ID:
-                showAboutPage();
+                showAbout();
                 return true;
         }
 
         return super.onMenuItemSelected(featureId, item);
-    }
-    
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v,
-            ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        menu.add(0, DELETE_ID, 0, R.string.ctxmenu_delete_route);
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case DELETE_ID:
-            	//TODO move to model of some sort?
-                AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-                mRoutesDbAdapter.delete(info.id);
-                populateList();
-                return true;
-        }
-        return super.onContextItemSelected(item);
     }
     
     private void showTimetables(long routeId) {
@@ -123,12 +130,12 @@ public class Routes extends ListActivity {
         startActivityForResult(i, ACTIVITY_TIMETABLES);
     }
     
-    private void newRoute() {
+    private void showNewRoute() {
     	Intent i = new Intent(this, RouteEdit.class);
         startActivityForResult(i, ACTIVITY_CREATE);
     }
     
-    private void showAboutPage() { //TODO put these in some kind of "view"
+    private void showAbout() { //TODO put these in some kind of "view"
     	Dialog dialog = new Dialog(this);
 
     	dialog.setContentView(R.layout.about_dialog);
@@ -140,10 +147,10 @@ public class Routes extends ListActivity {
         	versionTextView.setText(packageInfo.versionName + " (" + packageInfo.versionCode + ")");
 
         	TextView appDescTextView = (TextView) dialog.findViewById(R.id.app_desc);
-        	this.linkifyTextViewWithText(appDescTextView, R.string.app_desc);
+        	ViewHelper.linkifyTextView(this, appDescTextView, R.string.app_desc);
         	
         	TextView moreInfoTextView = (TextView) dialog.findViewById(R.id.more_info);
-        	this.linkifyTextViewWithText(moreInfoTextView, R.string.app_moreinfo);
+        	ViewHelper.linkifyTextView(this,moreInfoTextView, R.string.app_moreinfo);
         } catch (NameNotFoundException e) {
             // TODO Log error
         }
@@ -151,13 +158,45 @@ public class Routes extends ListActivity {
     	dialog.show();
     }
     
-    // TODO view
-    protected void linkifyTextViewWithText(TextView textView, int stringResId) {
-    	SpannableString s = new SpannableString(this.getText(stringResId));
-    	Linkify.addLinks(s, Linkify.WEB_URLS);
-    	textView.setText(s);
-    	textView.setMovementMethod(LinkMovementMethod.getInstance());
+    private void syncAllRoutes() {
+        
+    	new AsyncTask<Void, Void, Void>() {
+    		ProgressDialog mDialog;
+    		 
+    		protected void onPreExecute() {
+    			mDialog = ProgressDialog.show(Routes.this, "", 
+    					Routes.this.getString(R.string.sync_in_progress), true);
+    		}
+    		 
+            protected Void doInBackground(Void... params){
+                try {
+                	Cursor routesCursor = mRoutesDbAdapter.fetchAll();
+                    startManagingCursor(routesCursor);
+                    int routeIdIdx = routesCursor.getColumnIndex(RoutesDbAdapter.KEY_ROWID);
+                    for (routesCursor.moveToFirst(); routesCursor.isAfterLast() == false;
+                    		routesCursor.moveToNext()) {
+                    	long routeId = routesCursor.getLong(routeIdIdx);
+                     	TimetablesSynchronizer timetablesSynchronizer = new TimetablesSynchronizer(Routes.this);
+                    	timetablesSynchronizer.syncTimetablesForRoute(routeId);
+                    }
+                    routesCursor.close();
+                } catch (Exception e) {
+                    Log.e(TAG, "Exception syncing routes", e);
+                }
+                return null;
+            }
+    	 
+            @Override
+            protected void onPostExecute(Void result) {
+            	mDialog.dismiss();
+            	populateList();
+            }
+     	        
+    	}.execute();
+    	
     }
+    
+    /* Activity methods */
     
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -172,42 +211,6 @@ public class Routes extends ListActivity {
         }
     }
     
-    protected void syncAllRoutes() {
-        
-    	new AsyncTask<Void, Void, Void>() {
-    		ProgressDialog mDialog;
-    		 
-    		protected void onPreExecute() {
-    			mDialog = ProgressDialog.show(Routes.this, "", 
-    					Routes.this.getString(R.string.sync_in_progress), true);
-    		}
-    		 
-            protected Void doInBackground(Void... params){
-                try {
-                	Cursor routesCursor = mRoutesDbAdapter.fetchAll();
-                    startManagingCursor(routesCursor);
-                    for (routesCursor.moveToFirst(); 
-                    		routesCursor.isAfterLast() == false; 
-                    		routesCursor.moveToNext()) {
-                    	long routeId = routesCursor.getLong(routesCursor.getColumnIndex(RoutesDbAdapter.KEY_ROWID));
-                        TimetablesSynchronizer timetablesSynchronizer = new TimetablesSynchronizer(Routes.this);
-                    	timetablesSynchronizer.syncTimetablesForRoute(routeId);
-                    }
-                    routesCursor.close();
-                } catch (Exception e) {
-                    Log.e(TAG, "Exception syncing timetable", e);
-                }
-                return null;
-            }
-    	 
-            @Override
-            protected void onPostExecute(Void result) {
-            	mDialog.dismiss();
-            	populateList();
-            }
-     	        
-    	}.execute();
-    	
-    }
+    
     
 }

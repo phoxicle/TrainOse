@@ -135,4 +135,5 @@ public class RoutesDbAdapter extends AbstractDbAdapter {
 
         return mDb.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
     }
+    
 }

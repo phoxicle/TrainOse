@@ -57,8 +57,8 @@ public class TimetablesSynchronizer {
             routesDbAdapter.open();
             Cursor routesCursor = routesDbAdapter.fetch(routeId);
             mActivity.startManagingCursor(routesCursor);
-            String source = routesCursor.getString(routesCursor.getColumnIndex(RoutesDbAdapter.KEY_SOURCE));
-            String destination = routesCursor.getString(routesCursor.getColumnIndex(RoutesDbAdapter.KEY_DESTINATION));
+            String source = CursorHelper.getString(routesCursor,RoutesDbAdapter.KEY_SOURCE);
+            String destination = CursorHelper.getString(routesCursor,RoutesDbAdapter.KEY_DESTINATION);
             routesDbAdapter.close();
 
             // Retrieve and parse XML from server
@@ -74,11 +74,11 @@ public class TimetablesSynchronizer {
 	            TimetablesDbAdapter timetablesDbAdapter = new TimetablesDbAdapter(mActivity);
 	            timetablesDbAdapter.open();
 	            timetablesDbAdapter.deleteByRoute(routeId);
-	            for (int i = 0; i < mTimetablesList.size(); i++) {
-	            	HashMap<String,String> currentMap = mTimetablesList.get(i);
+	            for (HashMap<String,String> currentMap : mTimetablesList) {
 	            	timetablesDbAdapter.create(routeId, currentMap.get("depart"), 
-	            			currentMap.get("arrive"), currentMap.get("duration"), currentMap.get("train"),
-	            			currentMap.get("trainNum"), currentMap.get("delay"));
+	            			currentMap.get("arrive"), currentMap.get("duration"), 
+	            			currentMap.get("train"), currentMap.get("trainNum"), 
+	            			currentMap.get("delay"));
 	            }
 	            timetablesDbAdapter.close();
             }
