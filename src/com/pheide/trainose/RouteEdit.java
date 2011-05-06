@@ -23,6 +23,11 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
+/**
+ * Class which displays the form to create or edit routes.
+ * 
+ * @author Christine Gerpheide
+ */
 public class RouteEdit extends Activity {
 	
 	private static final String TAG = "RouteEdit";
@@ -35,12 +40,15 @@ public class RouteEdit extends Activity {
     Boolean mIsTwoWay;
     long mReversedRouteId;
     
+    /**
+     * Initialize this view
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.route_edit);
-        setTitle(R.string.new_route);
+        this.setContentView(R.layout.route_edit);
+        this.setTitle(R.string.new_route);
 
         // Create source/destination selectors
         String[] stations = getResources().getStringArray(R.array.stations_array);
@@ -60,7 +68,7 @@ public class RouteEdit extends Activity {
         confirmButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
             	if (stationsAreValid()) {
-            		createRoute();
+            		RouteEdit.this.createRoute();
             	} else {
             		Toast.makeText(RouteEdit.this, R.string.invalid_stations, Toast.LENGTH_SHORT).show();
             	}
@@ -68,6 +76,11 @@ public class RouteEdit extends Activity {
         });
     }
     
+    /**
+     * Check whether the stations entered are valid stations.
+     * 
+     * @return boolean
+     */
     private Boolean stationsAreValid() { // Android really ought to handle this itself..
     	String[] stations = getResources().getStringArray(R.array.stations_array);
         Arrays.sort(stations);
@@ -79,6 +92,9 @@ public class RouteEdit extends Activity {
         }
     }
     
+    /**
+     * Create a route with the stations entered by the user.
+     */
     private void createRoute() {
     	RoutesDbAdapter routesDbAdapter = new RoutesDbAdapter(this);
         routesDbAdapter.open();
@@ -89,9 +105,9 @@ public class RouteEdit extends Activity {
         // Create route if it does not yet exist
         try {
         	Cursor routeCursor = routesDbAdapter.fetchBySourceAndDestination(source,destination);
-        	startManagingCursor(routeCursor);
+        	this.startManagingCursor(routeCursor);
         	mRouteId = routeCursor.getLong(routeCursor.getColumnIndex(RoutesDbAdapter.KEY_ROWID));
-        	stopManagingCursor(routeCursor);
+        	this.stopManagingCursor(routeCursor);
         } catch (Exception e) {
         	mRouteId = routesDbAdapter.create(source,destination);
         }
@@ -100,9 +116,9 @@ public class RouteEdit extends Activity {
     		mIsTwoWay = true;
     		try {
             	Cursor reversedRouteCursor = routesDbAdapter.fetchBySourceAndDestination(destination,source);
-            	startManagingCursor(reversedRouteCursor);
+            	this.startManagingCursor(reversedRouteCursor);
             	mReversedRouteId = reversedRouteCursor.getLong(reversedRouteCursor.getColumnIndex(RoutesDbAdapter.KEY_ROWID));
-            	stopManagingCursor(reversedRouteCursor);
+            	this.stopManagingCursor(reversedRouteCursor);
             } catch (Exception e) {
             	mReversedRouteId = routesDbAdapter.create(destination,source);
             }
@@ -110,16 +126,23 @@ public class RouteEdit extends Activity {
     	
     	routesDbAdapter.close();
     	
-    	syncRoute(); // uses callback
+    	this.syncRoute(); // uses callback
     }
     
+    /**
+     * Callback after creating a route. Close this view and
+     * show the timetables for the route.
+     */
     private void didCreateRoute() {
     	Intent i = new Intent(this, Timetables.class);
         i.putExtra(RoutesDbAdapter.KEY_ROWID, mRouteId);
-    	setResult(RESULT_OK,i);
-        finish();
+    	this.setResult(RESULT_OK,i);
+        this.finish();
     }
     
+    /**
+     * Initialize a background task to synchronize this route.
+     */
     protected void syncRoute() {
         
     	new AsyncTask<Void, Void, Void>() {
@@ -149,7 +172,7 @@ public class RouteEdit extends Activity {
     		@Override
             protected void onPostExecute(Void result) {
             	mDialog.dismiss();
-            	didCreateRoute();
+            	RouteEdit.this.didCreateRoute();
             }
      	        
     	}.execute();

@@ -7,7 +7,6 @@
 
 package com.pheide.trainose;
 
-import java.net.URL;
 import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.util.HashMap;
@@ -24,17 +23,20 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.ClipboardManager;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
+/**
+ * Class which displays timetables for a specific route.
+ * 
+ * @author Christine Gerpheide
+ */
 public class Timetables extends ListActivity {
 	
 	private static final String TAG = "Timetables";
@@ -60,6 +62,9 @@ public class Timetables extends ListActivity {
 	ProgressDialog mDialog;
 	public static List<HashMap<String,String>> timetablesList = null;
 	
+	/**
+	 * Initialize this view.
+	 */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,26 +77,34 @@ public class Timetables extends ListActivity {
         RoutesDbAdapter routesDbAdapter = new RoutesDbAdapter(this);
         routesDbAdapter.open();
         Cursor routesCursor = routesDbAdapter.fetch(mRouteId);
-        startManagingCursor(routesCursor);
+        this.startManagingCursor(routesCursor);
         mSourceTitle = CursorHelper.getString(routesCursor, RoutesDbAdapter.KEY_SOURCE);
         mDestinationTitle = CursorHelper.getString(routesCursor, RoutesDbAdapter.KEY_DESTINATION);
-        setTitle(mSourceTitle + " ⇨ " + mDestinationTitle);
+        this.setTitle(mSourceTitle + " ⇨ " + mDestinationTitle);
         routesDbAdapter.close();
         
         mTimetablesDbAdapter = new TimetablesDbAdapter(this);
         mTimetablesDbAdapter.open();
         
-        populateList();
-        registerForContextMenu(getListView());
+        this.populateList();
+        this.registerForContextMenu(this.getListView());
     }
     
     /* List methods */
     
+    /**
+     * Populate the view with the timetables for this route with
+     * a default sorting.
+     */
     private void populateList() {
         this.populateListSorted(null);
         this.setLastSynced();
     }
     
+    /**
+     * Retrieve the last synced timestamp for this route and show it
+     * in the view.
+     */
     private void setLastSynced() {
         RoutesDbAdapter routesDbAdapter = new RoutesDbAdapter(this);
         routesDbAdapter.open();
@@ -105,15 +118,24 @@ public class Timetables extends ListActivity {
         routesDbAdapter.close();
     }
     
+    /**
+     * Populate the view with the timetables for this route with the 
+     * specified sorting.
+     * 
+     * @param String the sorting to use for the timetables
+     */
     private void populateListSorted(String sorting) {
         Cursor timetablesCursor = mTimetablesDbAdapter.fetchByRouteSorted(mRouteId, sorting);
-        startManagingCursor(timetablesCursor);
+        this.startManagingCursor(timetablesCursor);
         TimetablesCursorAdapter timetables = new TimetablesCursorAdapter(this,timetablesCursor);
-        setListAdapter(timetables);
+        this.setListAdapter(timetables);
     }
     
     /* Options menu */
     
+    /**
+     * Create the options menu.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -124,43 +146,52 @@ public class Timetables extends ListActivity {
         return true;
     }
 
+    /**
+     * Handle when an option menu item is selected.
+     */
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
         switch(item.getItemId()) {
             case SYNC_ID:
-            	syncRoute();
+            	this.syncRoute();
                 return true;
             case SORT_ID:
-            	showDialog(DIALOG_SORT_ID);
+            	this.showDialog(DIALOG_SORT_ID);
                 return true;
             case DELETE_ID:
-            	showDialog(DIALOG_DELETE_ID);
+            	this.showDialog(DIALOG_DELETE_ID);
                 return true;
             case COPY_ALL_ID:
-            	copyAllTimetablesToClipboard();
+            	this.copyAllTimetablesToClipboard();
                 return true;
         }
 
         return super.onMenuItemSelected(featureId, item);
     }
     
+    /**
+     * Copy all timetables for this route to the clipboard.
+     */
     protected void copyAllTimetablesToClipboard() {
     	String text = this.getText(R.string.schedule) + " " + mSourceTitle + " " 
     			+ this.getText(R.string.to) + " " + mDestinationTitle;
     	
     	Cursor timetablesCursor = mTimetablesDbAdapter.fetchByRoute(mRouteId);
-    	startManagingCursor(timetablesCursor);
+    	this.startManagingCursor(timetablesCursor);
     	for (timetablesCursor.moveToFirst(); timetablesCursor.isAfterLast() == false;
     		timetablesCursor.moveToNext()) {
-    			text += "\n" + getStringForTimetableFromCursor(timetablesCursor);
+    			text += "\n" + this.getStringForTimetableFromCursor(timetablesCursor);
     	}
-    	stopManagingCursor(timetablesCursor);
+    	this.stopManagingCursor(timetablesCursor);
     	
-    	copyTextToClipboard(text);
+    	this.copyTextToClipboard(text);
     }
     
     /* Context menu */
     
+    /**
+     * Create the context menu for each timetable.
+     */
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
             ContextMenuInfo menuInfo) {
@@ -170,31 +201,42 @@ public class Timetables extends ListActivity {
         menu.add(0, SEATS_ID, 0, R.string.ctxmenu_seat_availability);
     }
 
+    /**
+     * Handler for pressing a context menu item for a timetable.
+     */
     @Override
     public boolean onContextItemSelected(MenuItem item) {
     	AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
     	mTimetableId = info.id;
         switch(item.getItemId()) {
             case COPY_ID:
-            	copyTimetableToClipboard(mTimetableId);
+            	this.copyTimetableToClipboard(mTimetableId);
                 return true;
             case DETAILS_ID:
-            	showDialog(DIALOG_DETAIL_ID);
+            	this.showDialog(DIALOG_DETAIL_ID);
                 return true;
             case SEATS_ID:
-            	showDialog(DIALOG_SEATS_ID);
+            	this.showDialog(DIALOG_SEATS_ID);
                 return true;
         }
         return super.onContextItemSelected(item);
     }
     
+    /**
+     * Copy the selected timetable to the clipboard.
+     * 
+     * @param long the ID of the timetable
+     */
     protected void copyTimetableToClipboard(long timetableId) {
     	Cursor timetableCursor = mTimetablesDbAdapter.fetch(timetableId);
-    	startManagingCursor(timetableCursor);
-        copyTextToClipboard(getStringForTimetableFromCursor(timetableCursor));
-    	stopManagingCursor(timetableCursor);
+    	this.startManagingCursor(timetableCursor);
+        this.copyTextToClipboard(getStringForTimetableFromCursor(timetableCursor));
+    	this.stopManagingCursor(timetableCursor);
     }
     
+    /**
+     * Open a web browser showing the seat availability for this route.
+     */
     protected void openSeatAvailability() {
     	//http://tickets.trainose.gr/dromologia/touch_seats.html?c=krathsh_wt&op=trip_available_seats&trip=56|ŒëŒòŒóŒù|ŒòŒïŒ£Œ£|20110210|19.29|20110210|23.55|11:&lang=gr
     	HashMap<String,String> timetableMap = this.fetchAsHashMap(mTimetableId);
@@ -206,7 +248,7 @@ public class Timetables extends ListActivity {
 	         		+ "&arrive=" + timetableMap.get(TimetablesDbAdapter.KEY_ARRIVE)
 	         		+ "&trainNum=" + timetableMap.get(TimetablesDbAdapter.KEY_TRAIN_NUM));
 	    	 Intent intent = new Intent(Intent.ACTION_VIEW, seatsAvailabilityUri);
-	    	 startActivity(intent);
+	    	 this.startActivity(intent);
     	} catch (Exception e) {
     		//TODO log encoding exception
     	}
@@ -214,13 +256,19 @@ public class Timetables extends ListActivity {
     
     /* Dialogs */
     
+    /**
+     * Prepares any dynamic data needed within a dialog before it is displayed.
+     * 
+     * @param int the Dialog ID
+     * @param Dialog the dialog
+     */
     protected void onPrepareDialog(int id, Dialog dialog) {
     	switch(id) {
     		case DIALOG_DETAIL_ID:
     			Cursor timetableCursor = mTimetablesDbAdapter.fetch(mTimetableId);
-                startManagingCursor(timetableCursor);
+                this.startManagingCursor(timetableCursor);
                 String delay = CursorHelper.getString(timetableCursor,TimetablesDbAdapter.KEY_DELAY);
-                stopManagingCursor(timetableCursor);
+                this.stopManagingCursor(timetableCursor);
                 
                 TextView tv = new TextView(this);
                 tv.setText("Delay: " + delay);
@@ -229,6 +277,12 @@ public class Timetables extends ListActivity {
     	}
     }
     
+    /**
+     * Builder for all dialogs.
+     * 
+     * @param int the ID of the dialog to build
+     * @return the built dialog
+     */
     protected Dialog onCreateDialog(int id) {
         Dialog dialog;
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
@@ -273,7 +327,7 @@ public class Timetables extends ListActivity {
         	       .setCancelable(false)
         	       .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
         	           public void onClick(DialogInterface dialog, int id) {
-        	                openSeatAvailability();
+        	                Timetables.this.openSeatAvailability();
         	           }
         	       })
         	       .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
@@ -307,8 +361,10 @@ public class Timetables extends ListActivity {
         return dialog;
     }
     
+    /**
+     * Initialize a background process to synchronize this route.
+     */
     protected void syncRoute() {
-    
     	new AsyncTask<Long, Void, Void>() {
     		ProgressDialog mDialog;
     		 
@@ -326,11 +382,10 @@ public class Timetables extends ListActivity {
             @Override
             protected void onPostExecute(Void result) {
             	mDialog.dismiss();
-            	populateList();
+            	Timetables.this.populateList();
             }
      	        
     	}.execute(mRouteId);
-    	
     }
     
     /* Helpers */
@@ -340,7 +395,7 @@ public class Timetables extends ListActivity {
      */
     public HashMap<String,String> fetchAsHashMap(long timetableId) {
     	Cursor timetableCursor = mTimetablesDbAdapter.fetch(timetableId);
-        startManagingCursor(timetableCursor);
+        this.startManagingCursor(timetableCursor);
         
     	HashMap<String,String> timetableMap = new HashMap<String,String>();
     	String[] mapKeys = { TimetablesDbAdapter.KEY_DEPART , TimetablesDbAdapter.KEY_ARRIVE,
@@ -352,7 +407,7 @@ public class Timetables extends ListActivity {
     		timetableMap.put(key, CursorHelper.getString(timetableCursor,key));
     	}
     	
-    	stopManagingCursor(timetableCursor);
+    	this.stopManagingCursor(timetableCursor);
     	return timetableMap;
     }
     

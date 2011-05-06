@@ -13,6 +13,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+/**
+ * Abstract class to take care of shared DbAdapter code.
+ * 
+ * Note that all create statements for all tables must be here.
+ * 
+ * @author Christine Gerpheide
+ */
 public abstract class AbstractDbAdapter {
 
     protected static final String TAG = "TrainOseDbAdapter";

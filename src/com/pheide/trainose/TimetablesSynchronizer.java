@@ -10,7 +10,6 @@ package com.pheide.trainose;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,26 +24,37 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 
-import android.accounts.NetworkErrorException;
 import android.app.Activity;
-import android.app.Service;
-import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
-import android.net.ConnectivityManager;
-import android.os.IBinder;
-import android.util.Log;
 import android.widget.Toast;
 
+/**
+ * Class to handle synchronizing the timetables for a route.
+ * 
+ * Typically run in the background.
+ * 
+ * @author Christine Gerpheide
+ */
 public class TimetablesSynchronizer {
 
 	Activity mActivity; // Needed for context and cursor management
 	List<HashMap<String,String>> mTimetablesList = null;
     
+	/**
+	 * Construct the synchronizer.
+	 * 
+	 * @param activity to use for context and cursor management.
+	 */
     public TimetablesSynchronizer(Activity activity) {
     	mActivity = activity;
     }
     
+    /**
+     * Download and store all timetables for a given route.
+     * 
+     * @param long the route ID for which to download timetables.
+     * @return
+     */
     public Boolean syncTimetablesForRoute(long routeId) {
 	    try {
     		// Set up XML parsers etc
@@ -110,6 +120,11 @@ public class TimetablesSynchronizer {
 	    return true;
     }
     
+    /**
+     * Class to handle parsing the timetables XML returned from the server.
+     * 
+     * @author Christine Gerpheide
+     */
     protected class TimetablesXmlHandler extends DefaultHandler {
     	
     	Boolean currentElement = false;
@@ -121,14 +136,15 @@ public class TimetablesSynchronizer {
 	    public void startElement(String uri, String localName, String qName,
 	            Attributes attributes) throws SAXException {
 	 
-	        currentElement = true;
-	        currentValue = null;
+	        this.currentElement = true;
+	        this.currentValue = null;
 	 
 	        if (localName.equals("xml")) {
-	            mTimetablesList = new ArrayList<HashMap<String,String>>();
+	            TimetablesSynchronizer.this.mTimetablesList = 
+	            		new ArrayList<HashMap<String,String>>();
 	        } else if (localName.equals("route")) {
-	        	currentMap = new HashMap<String,String>();
-	        	inRoute = true;
+	        	this.currentMap = new HashMap<String,String>();
+	        	this.inRoute = true;
 	        }
 	 
 	    }
@@ -137,15 +153,15 @@ public class TimetablesSynchronizer {
 	    public void endElement(String uri, String localName, String qName)
 	            throws SAXException {
 	 
-	        currentElement = false;
-	        if (inRoute) {
-	        	currentMap.put(localName, currentValue != null ? 
-	        			currentValue : new String());
+	        this.currentElement = false;
+	        if (this.inRoute) {
+	        	this.currentMap.put(localName, this.currentValue != null ? 
+	        			this.currentValue : new String());
 	        }
 	        
 	        if (localName.equalsIgnoreCase("route")) {
-	        	inRoute = false;
-	        	mTimetablesList.add(currentMap);
+	        	this.inRoute = false;
+	        	TimetablesSynchronizer.this.mTimetablesList.add(this.currentMap);
 	        }
 	 
 	    }
@@ -154,9 +170,9 @@ public class TimetablesSynchronizer {
 	    public void characters(char[] ch, int start, int length)
 	            throws SAXException {
 	 
-	        if (currentElement) {
-	            currentValue = new String(ch, start, length);
-	            currentElement = false;
+	        if (this.currentElement) {
+	            this.currentValue = new String(ch, start, length);
+	            this.currentElement = false;
 	         }
 	 
 	    }

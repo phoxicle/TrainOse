@@ -31,6 +31,11 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.TextView;
 
+/**
+ * Class which displays the list of downloaded routes.
+ * 
+ * @author Christine Gerpheide
+ */
 public class Routes extends ListActivity {
 	
 	private static final String TAG = "Routes";
@@ -45,38 +50,50 @@ public class Routes extends ListActivity {
     
 	RoutesDbAdapter mRoutesDbAdapter;
 	
+	/**
+	 * Initialize this view
+	 */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.routes_list);
+        this.setContentView(R.layout.routes_list);
         
         mRoutesDbAdapter = new RoutesDbAdapter(this);
         mRoutesDbAdapter.open();
         
-        populateList();
-        registerForContextMenu(getListView());
+        this.populateList();
+        this.registerForContextMenu(this.getListView());
     }
     
     /* Lists */
     
+    /**
+     * Populate the view with a list of all stored routes.
+     */
     private void populateList() {
         Cursor routesCursor = mRoutesDbAdapter.fetchAll();
-        startManagingCursor(routesCursor);
+        this.startManagingCursor(routesCursor);
 
         String[] from = new String[]{RoutesDbAdapter.KEY_SOURCE, RoutesDbAdapter.KEY_DESTINATION};
         int[] to = new int[]{R.id.source, R.id.destination};
         SimpleCursorAdapter notes = new SimpleCursorAdapter(this, R.layout.routes_row, routesCursor, from, to);
-        setListAdapter(notes);
+        this.setListAdapter(notes);
     }
     
+    /**
+     * Handler for when a route is clicked.
+     */
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        showTimetables(id);
+        this.showTimetables(id);
     }
     
     /* Context menu */
     
+    /**
+     * Build the context menu for a route.
+     */
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
             ContextMenuInfo menuInfo) {
@@ -84,13 +101,16 @@ public class Routes extends ListActivity {
         menu.add(0, DELETE_ID, 0, R.string.ctxmenu_delete_route);
     }
 
+    /**
+     * Handler for when a route's context menu item is clicked.
+     */
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case DELETE_ID:
                 AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
                 mRoutesDbAdapter.delete(info.id);
-                populateList();
+                this.populateList();
                 return true;
         }
         return super.onContextItemSelected(item);
@@ -98,6 +118,9 @@ public class Routes extends ListActivity {
     
     /* Options menu */
     
+    /**
+     * Build the options menu for routes.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -107,34 +130,48 @@ public class Routes extends ListActivity {
         return true;
     }
 
+    /**
+     * Handler for when an option menu item is pressed.
+     */
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
         switch(item.getItemId()) {
             case NEW_ID:
-                showNewRoute();
+                this.showNewRoute();
                 return true;
             case SYNC_ID:
-                syncAllRoutes();
+                this.syncAllRoutes();
                 return true;
             case ABOUT_ID:
-                showAbout();
+                this.showAbout();
                 return true;
         }
 
         return super.onMenuItemSelected(featureId, item);
     }
     
+    /**
+     * Start a new activity to show the timetables for a route.
+     * 
+     * @param long the routeId to show timetables for
+     */
     private void showTimetables(long routeId) {
     	Intent i = new Intent(this, Timetables.class);
         i.putExtra(RoutesDbAdapter.KEY_ROWID, routeId);
-        startActivityForResult(i, ACTIVITY_TIMETABLES);
+        this.startActivityForResult(i, ACTIVITY_TIMETABLES);
     }
     
+    /**
+     * Start a new activity to create a new route.
+     */
     private void showNewRoute() {
     	Intent i = new Intent(this, RouteEdit.class);
-        startActivityForResult(i, ACTIVITY_CREATE);
+        this.startActivityForResult(i, ACTIVITY_CREATE);
     }
     
+    /**
+     * Show a dialog with info about this application.
+     */
     private void showAbout() { //TODO put these in some kind of "view"
     	Dialog dialog = new Dialog(this);
 
@@ -158,6 +195,10 @@ public class Routes extends ListActivity {
     	dialog.show();
     }
     
+    /**
+     * Initiate a background task that will cycle through each route
+     * and synchronize it.
+     */
     private void syncAllRoutes() {
         
     	new AsyncTask<Void, Void, Void>() {
@@ -171,7 +212,7 @@ public class Routes extends ListActivity {
             protected Void doInBackground(Void... params){
                 try {
                 	Cursor routesCursor = mRoutesDbAdapter.fetchAll();
-                    startManagingCursor(routesCursor);
+                    Routes.this.startManagingCursor(routesCursor);
                     int routeIdIdx = routesCursor.getColumnIndex(RoutesDbAdapter.KEY_ROWID);
                     for (routesCursor.moveToFirst(); routesCursor.isAfterLast() == false;
                     		routesCursor.moveToNext()) {
@@ -189,7 +230,7 @@ public class Routes extends ListActivity {
             @Override
             protected void onPostExecute(Void result) {
             	mDialog.dismiss();
-            	populateList();
+            	Routes.this.populateList();
             }
      	        
     	}.execute();
@@ -198,6 +239,9 @@ public class Routes extends ListActivity {
     
     /* Activity methods */
     
+    /**
+     * Handle when a view returns to this view.
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
