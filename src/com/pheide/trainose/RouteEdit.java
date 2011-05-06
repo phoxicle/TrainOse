@@ -82,6 +82,20 @@ public class RouteEdit extends Activity {
      * @return boolean
      */
     private Boolean stationsAreValid() { // Android really ought to handle this itself..
+    	// Make sure stations entered are capitalized
+    	String sourceText = mSourceTextView.getText().toString();
+    	String destinationText = mDestinationTextView.getText().toString();
+    	
+    	if (sourceText.length() == 0 || destinationText.length() == 0) {
+    		return false;
+    	}
+    	
+    	// Capitalize first letter, lowercase the rest
+    	mSourceTextView.setText(sourceText.substring(0, 1).toUpperCase() 
+    			+ sourceText.substring(1).toLowerCase());
+    	mDestinationTextView.setText(destinationText.substring(0, 1).toUpperCase() 
+    			+ destinationText.substring(1).toLowerCase());
+    	
     	String[] stations = getResources().getStringArray(R.array.stations_array);
         Arrays.sort(stations);
         if (Arrays.binarySearch(stations, mSourceTextView.getText().toString()) > 0
