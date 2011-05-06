@@ -66,8 +66,10 @@ public class TimetablesSynchronizer {
             RoutesDbAdapter routesDbAdapter = new RoutesDbAdapter(mActivity);
             routesDbAdapter.open();
             Cursor routesCursor = routesDbAdapter.fetch(routeId);
+            mActivity.startManagingCursor(routesCursor);
             String source = CursorHelper.getString(routesCursor,RoutesDbAdapter.KEY_SOURCE);
             String destination = CursorHelper.getString(routesCursor,RoutesDbAdapter.KEY_DESTINATION);
+            mActivity.stopManagingCursor(routesCursor);
             routesDbAdapter.close();
 
             // Retrieve and parse XML from server
