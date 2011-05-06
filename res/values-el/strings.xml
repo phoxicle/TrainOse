@@ -9,6 +9,7 @@
     <string name="version"><b>Έκδοση:</b> </string>
     <string name="yes">Ναι</string>
     <string name="no">Όχι</string>
+    <string name="to">προς</string>
     
     <!-- Routes Listing (Routes.java) -->
     <string name="optmenu_new_route">Νέα διαδρομή</string>
@@ -29,6 +30,7 @@
     <string name="optmenu_sync">Συγχρονίστε τώρα</string>
     <string name="optmenu_sort">Ταξινόμηση</string>
     <string name="optmenu_delete">Διαγραφή</string>
+    <string name="optmenu_copy_all">Αντιγραφή όλων</string>
     <string name="confirm_delete">Είστε σίγουρος/η ότι θέλετε να σβήσετε αυτή τη διαδρομή;</string>
     <string name="ctxmenu_copy">Αντιγραφή</string>
     <string name="ctxmenu_details">Προβολή λεπτομερειών</string>
@@ -42,5 +44,7 @@
     <string name="train">Τρένο</string>
     <string name="sortBy">Ταξινόμηση κατά</string>
     <string name="last_synced">Προηγούμενος συγχρονισμός:</string>
+    <string name="copy_succesful">Έγινε αντιγραφή κειμένου</string>
+    <string name="schedule">Δρομολόγιο τρένου:</string>
     
 </resources>

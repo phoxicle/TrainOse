@@ -9,6 +9,7 @@
     <string name="version"><b>Version:</b> </string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="to">to</string>
     
     <!-- Routes Listing (Routes.java) -->
     <string name="optmenu_new_route">New Route</string>
@@ -29,6 +30,7 @@
     <string name="optmenu_sync">Sync</string>
     <string name="optmenu_sort">Sort By</string>
     <string name="optmenu_delete">Delete</string>
+    <string name="optmenu_copy_all">Copy All</string>
     <string name="confirm_delete">Are you sure you want to delete this route?</string>
     <string name="ctxmenu_copy">Copy</string>
     <string name="ctxmenu_details">View Details</string>
@@ -42,6 +44,8 @@
     <string name="train">Train</string>
     <string name="sortBy">Sort By</string>
     <string name="last_synced">Last sync:</string>
+    <string name="copy_succesful">Text copied to clipboard</string>
+    <string name="schedule">Train schedule:</string>
     
     <!-- Exceptions -->
     <string name="exception_network">Network error</string>

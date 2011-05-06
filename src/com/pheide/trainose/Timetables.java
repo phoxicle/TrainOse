@@ -45,6 +45,7 @@ public class Timetables extends ListActivity {
     private static final int DETAILS_ID = Menu.FIRST + 3;
     private static final int SEATS_ID = Menu.FIRST + 4;
     private static final int DELETE_ID = Menu.FIRST + 5;
+    private static final int COPY_ALL_ID = Menu.FIRST + 6;
     
     static final int DIALOG_SORT_ID = 0;
     static final int DIALOG_DETAIL_ID = 1;
@@ -119,6 +120,7 @@ public class Timetables extends ListActivity {
         menu.add(0, SYNC_ID, 0, R.string.optmenu_sync);
         menu.add(0, SORT_ID, 0, R.string.optmenu_sort);
         menu.add(0, DELETE_ID, 0, R.string.optmenu_delete);
+        menu.add(0, COPY_ALL_ID, 0, R.string.optmenu_copy_all);
         return true;
     }
 
@@ -134,9 +136,27 @@ public class Timetables extends ListActivity {
             case DELETE_ID:
             	showDialog(DIALOG_DELETE_ID);
                 return true;
+            case COPY_ALL_ID:
+            	copyAllTimetablesToClipboard();
+                return true;
         }
 
         return super.onMenuItemSelected(featureId, item);
+    }
+    
+    protected void copyAllTimetablesToClipboard() {
+    	String text = this.getText(R.string.schedule) + " " + mSourceTitle + " " 
+    			+ this.getText(R.string.to) + " " + mDestinationTitle;
+    	
+    	Cursor timetablesCursor = mTimetablesDbAdapter.fetchByRoute(mRouteId);
+    	startManagingCursor(timetablesCursor);
+    	for (timetablesCursor.moveToFirst(); timetablesCursor.isAfterLast() == false;
+    		timetablesCursor.moveToNext()) {
+    			text += "\n" + getStringForTimetableFromCursor(timetablesCursor);
+    	}
+    	stopManagingCursor(timetablesCursor);
+    	
+    	copyTextToClipboard(text);
     }
     
     /* Context menu */
@@ -168,17 +188,10 @@ public class Timetables extends ListActivity {
         return super.onContextItemSelected(item);
     }
     
-    private void copyTimetableToClipboard(long timetableId) {
+    protected void copyTimetableToClipboard(long timetableId) {
     	Cursor timetableCursor = mTimetablesDbAdapter.fetch(timetableId);
     	startManagingCursor(timetableCursor);
-        String depart = CursorHelper.getString(timetableCursor,TimetablesDbAdapter.KEY_DEPART);
-        String arrive = CursorHelper.getString(timetableCursor,TimetablesDbAdapter.KEY_ARRIVE);
-        String duration = CursorHelper.getString(timetableCursor,TimetablesDbAdapter.KEY_DURATION);
-        String train = CursorHelper.getString(timetableCursor,TimetablesDbAdapter.KEY_TRAIN)
-        		+ CursorHelper.getString(timetableCursor,TimetablesDbAdapter.KEY_TRAIN_NUM);
-        
-        ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-    	clipboard.setText(depart + "- " + arrive + " (" + duration + ") " + train);
+        copyTextToClipboard(getStringForTimetableFromCursor(timetableCursor));
     	stopManagingCursor(timetableCursor);
     }
     
@@ -320,6 +333,8 @@ public class Timetables extends ListActivity {
     	
     }
     
+    /* Helpers */
+    
     /**
      * Helper to return a row in a Cursor as a hash map.
      */
@@ -340,5 +355,32 @@ public class Timetables extends ListActivity {
     	stopManagingCursor(timetableCursor);
     	return timetableMap;
     }
+    
+    /**
+     * Given a managed cursor, return a single timetable row as a readable string.
+     * 
+     * @param Cursor A managed timetableCursor
+     * @return the readable timetable string
+     */
+    protected String getStringForTimetableFromCursor(Cursor timetableCursor) {
+    	String depart = CursorHelper.getString(timetableCursor,TimetablesDbAdapter.KEY_DEPART);
+        String arrive = CursorHelper.getString(timetableCursor,TimetablesDbAdapter.KEY_ARRIVE);
+        String duration = CursorHelper.getString(timetableCursor,TimetablesDbAdapter.KEY_DURATION);
+        String train = CursorHelper.getString(timetableCursor,TimetablesDbAdapter.KEY_TRAIN)
+        		+ " " + CursorHelper.getString(timetableCursor,TimetablesDbAdapter.KEY_TRAIN_NUM);
+        
+        return depart + " - " + arrive + " (" + duration + ") " + train;
+   }
+   
+    /**
+     * Copy the given text to the user's clipboard and show a toast.
+     * 
+     * @param String the text to copy
+     */
+   protected void copyTextToClipboard(String text) {
+	   ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+	   clipboard.setText(text);
+	   Toast.makeText(this, R.string.copy_succesful, Toast.LENGTH_SHORT).show();
+   }
     
 }
