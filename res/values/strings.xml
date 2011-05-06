@@ -7,6 +7,7 @@
     <string name="app_desc">Greece Train Schedules is an unofficial application for viewing schedules of Greece\'s national rail system (OSE). The application downloads the latest routes, and then stores them locally on your mobile device to allow for offline access later. Because this application depends on external resources, the application may intermittently fail when those resources are undergoing maintenance. Be patient :)\n\nIf you have questions or suggestions, just send me a message and I\'d be more than happy to collaborate with you. You can raise any issues at https://github.com/phoxicle/TrainOse</string>
     <string name="app_moreinfo">For more info, please visit http://pheide.com/go/code</string>
     <string name="version"><b>Version:</b> </string>
+    <string name="build_number">build no. </string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="to">to</string>

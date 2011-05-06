@@ -181,7 +181,8 @@ public class Routes extends ListActivity {
     	TextView versionTextView = (TextView) dialog.findViewById(R.id.version);
         try {
         	PackageInfo packageInfo = getPackageManager().getPackageInfo(getApplicationInfo().packageName, 0);
-        	versionTextView.setText(packageInfo.versionName + " (" + packageInfo.versionCode + ")");
+        	versionTextView.setText(packageInfo.versionName + " (" 
+        			+ this.getString(R.string.build_number) + " " + packageInfo.versionCode + ")");
 
         	TextView appDescTextView = (TextView) dialog.findViewById(R.id.app_desc);
         	ViewHelper.linkifyTextView(this, appDescTextView, R.string.app_desc);
