@@ -81,12 +81,31 @@ public class TimetablesSynchronizer {
 	    		 TimetablesDbAdapter timetablesDbAdapter = new TimetablesDbAdapter(mActivity);
 	    		 timetablesDbAdapter.open();
 	             timetablesDbAdapter.deleteByRoute(routeId);
+	             
+	             LegsDbAdapter legsDbAdapter = new LegsDbAdapter(mActivity);
+	             legsDbAdapter.open();
 	             for (int i = 0; i < routes.length(); i++) {
 	            	 JSONObject route = routes.getJSONObject(i);
-	            	 timetablesDbAdapter.create(routeId, route.getString("depart"), 
-	            			 route.getString("arrive"), route.getString("duration"), 
-	            			 route.getString("train"), route.getString("trainNum"), 
-	            			 route.getInt("numLegs"));
+	            	 JSONArray legs = (JSONArray) route.get("legs");
+	            	 
+	            	 // Create the route, with some values from the legs for convenience
+	            	 int numLegs = legs.length();
+	            	 JSONObject firstLeg = legs.getJSONObject(0); // should always exist
+	            	 String train = firstLeg.getString("train");
+	            	 String trainNum = firstLeg.getString("trainNum");
+	            	 String depart = firstLeg.getString("depart");
+	            	 String arrive = legs.getJSONObject(numLegs - 1).getString("arrive");
+	            	 long timetableId = timetablesDbAdapter.create(routeId, depart, arrive,
+	            			 route.getString("duration"), train, trainNum, numLegs);
+	            	 
+	            	 // Add legs for this timetable
+	            	 legsDbAdapter.deleteByTimetable(timetableId);
+	            	 for (int j = 0; j < legs.length(); j++) {
+	            		 JSONObject leg = legs.getJSONObject(j);
+	            		 legsDbAdapter.create(timetableId, leg.getString("depart"),
+	            				 leg.getString("arrive"), leg.getString("train"), 
+	            				 leg.getString("trainNum"));
+	            	 }
 	             }
 	             timetablesDbAdapter.close();
 	    	}
@@ -96,19 +115,19 @@ public class TimetablesSynchronizer {
             routesDbAdapter.touchTimestamp(routeId);
             routesDbAdapter.close();
             
-	    } catch (IOException e) {
+	    } catch (IOException e) { // Couldn't reach host
 	    	mActivity.runOnUiThread(new Runnable() {
         	    public void run() {
         	        Toast.makeText(mActivity, "Network error", Toast.LENGTH_SHORT).show();
         	    }
         	});
-	    } catch (JSONException e) {
+	    } catch (JSONException e) { // JSON empty or not formatted
 	    	mActivity.runOnUiThread(new Runnable() {
         	    public void run() {
         	        Toast.makeText(mActivity, "Server error", Toast.LENGTH_SHORT).show();
         	    }
         	});
-	    }  catch (Exception e) {
+	    }  catch (Exception e) { // Something else. Hmm...
 	    	mActivity.runOnUiThread(new Runnable() {
         	    public void run() {
         	        Toast.makeText(mActivity, "An error occured", Toast.LENGTH_SHORT).show();
