@@ -32,9 +32,9 @@ public abstract class AbstractDbAdapter {
     protected static final String TABLE_CREATE_TIMETABLES =    
         "create table timetables (_id integer primary key autoincrement, "
     	+ "route_id integer, depart text not null, arrive text not null, "
-    	+ "duration text not null, train text not null, train_num text not null, " +
-    			"delay text not null" +
-    			");";
+    	+ "duration text not null, train text not null, train_num text not null, " 
+    	+ "num_legs integer not null" 
+    	+ ");";
 
     protected static final String DATABASE_NAME = "data";
     protected static final int DATABASE_VERSION = 2;

@@ -7,22 +7,17 @@
 
 package com.pheide.trainose;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
-import org.xml.sax.Attributes;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
-import org.xml.sax.helpers.DefaultHandler;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.database.Cursor;
@@ -57,11 +52,6 @@ public class TimetablesSynchronizer {
      */
     public Boolean syncTimetablesForRoute(long routeId) {
 	    try {
-    		// Set up XML parsers etc
-            SAXParserFactory spf = SAXParserFactory.newInstance();
-            SAXParser sp = spf.newSAXParser();
-            XMLReader xr = sp.getXMLReader();
-            
             // Get details (to/from) for this route
             RoutesDbAdapter routesDbAdapter = new RoutesDbAdapter(mActivity);
             routesDbAdapter.open();
@@ -72,28 +62,35 @@ public class TimetablesSynchronizer {
             mActivity.stopManagingCursor(routesCursor);
             routesDbAdapter.close();
 
-            // Retrieve and parse XML from server
-            URL sourceUrl = new URL("http://www.pheide.com/Services/TrainOse/ose.php?"
+            // Retrieve JSON from server
+            URL sourceUrl = new URL("http://www.pheide.com/Services/TrainOse/ose_json.php?"
             		+ "from=" + URLEncoder.encode(source,"UTF-8") 
             		+ "&to=" + URLEncoder.encode(destination,"UTF-8"));
-            TimetablesXmlHandler timetablesXmlHandler = new TimetablesXmlHandler();
-            xr.setContentHandler(timetablesXmlHandler);
-            xr.parse(new InputSource(sourceUrl.openStream()));
-
-            // Clear current timetables and add the new ones
-            if (mTimetablesList.size() > 1) {
-	            TimetablesDbAdapter timetablesDbAdapter = new TimetablesDbAdapter(mActivity);
-	            timetablesDbAdapter.open();
-	            timetablesDbAdapter.deleteByRoute(routeId);
-	            for (HashMap<String,String> currentMap : mTimetablesList) {
-	            	timetablesDbAdapter.create(routeId, currentMap.get("depart"), 
-	            			currentMap.get("arrive"), currentMap.get("duration"), 
-	            			currentMap.get("train"), currentMap.get("trainNum"), 
-	            			currentMap.get("delay"));
-	            }
-	            timetablesDbAdapter.close();
-            }
-            
+            BufferedReader in = new BufferedReader(new InputStreamReader(
+    				sourceUrl.openStream()));
+	    	String inputLine;
+	    	String jsonStr = "";
+	    	while ((inputLine = in.readLine()) != null)
+	    		jsonStr = jsonStr + inputLine;
+	    	in.close();
+	    	JSONObject jsonObj = new JSONObject(jsonStr);
+	    	
+	    	// Clear current timetables and add the new ones
+	    	JSONArray routes = (JSONArray) jsonObj.get("routes");
+	    	if (routes.length() > 0) {
+	    		 TimetablesDbAdapter timetablesDbAdapter = new TimetablesDbAdapter(mActivity);
+	    		 timetablesDbAdapter.open();
+	             timetablesDbAdapter.deleteByRoute(routeId);
+	             for (int i = 0; i < routes.length(); i++) {
+	            	 JSONObject route = routes.getJSONObject(i);
+	            	 timetablesDbAdapter.create(routeId, route.getString("depart"), 
+	            			 route.getString("arrive"), route.getString("duration"), 
+	            			 route.getString("train"), route.getString("trainNum"), 
+	            			 route.getInt("numLegs"));
+	             }
+	             timetablesDbAdapter.close();
+	    	}
+	    	
             // Update date last synced for this route
             routesDbAdapter.open();
             routesDbAdapter.touchTimestamp(routeId);
@@ -105,7 +102,7 @@ public class TimetablesSynchronizer {
         	        Toast.makeText(mActivity, "Network error", Toast.LENGTH_SHORT).show();
         	    }
         	});
-	    } catch (SAXException e) {
+	    } catch (JSONException e) {
 	    	mActivity.runOnUiThread(new Runnable() {
         	    public void run() {
         	        Toast.makeText(mActivity, "Server error", Toast.LENGTH_SHORT).show();
@@ -122,62 +119,4 @@ public class TimetablesSynchronizer {
 	    return true;
     }
     
-    /**
-     * Class to handle parsing the timetables XML returned from the server.
-     * 
-     * @author Christine Gerpheide
-     */
-    protected class TimetablesXmlHandler extends DefaultHandler {
-    	
-    	Boolean currentElement = false;
-    	String currentValue = null;
-        HashMap<String,String> currentMap = null;
-        Boolean inRoute = false;
- 
-	    @Override
-	    public void startElement(String uri, String localName, String qName,
-	            Attributes attributes) throws SAXException {
-	 
-	        this.currentElement = true;
-	        this.currentValue = null;
-	 
-	        if (localName.equals("xml")) {
-	            TimetablesSynchronizer.this.mTimetablesList = 
-	            		new ArrayList<HashMap<String,String>>();
-	        } else if (localName.equals("route")) {
-	        	this.currentMap = new HashMap<String,String>();
-	        	this.inRoute = true;
-	        }
-	 
-	    }
-	 
-	    @Override
-	    public void endElement(String uri, String localName, String qName)
-	            throws SAXException {
-	 
-	        this.currentElement = false;
-	        if (this.inRoute) {
-	        	this.currentMap.put(localName, this.currentValue != null ? 
-	        			this.currentValue : new String());
-	        }
-	        
-	        if (localName.equalsIgnoreCase("route")) {
-	        	this.inRoute = false;
-	        	TimetablesSynchronizer.this.mTimetablesList.add(this.currentMap);
-	        }
-	 
-	    }
-	 
-	    @Override
-	    public void characters(char[] ch, int start, int length)
-	            throws SAXException {
-	 
-	        if (this.currentElement) {
-	            this.currentValue = new String(ch, start, length);
-	            this.currentElement = false;
-	         }
-	 
-	    }
-    }
- 
 }
