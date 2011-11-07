@@ -36,25 +36,25 @@
 	    <TextView 
 		    android:text="@string/depart"
 		    android:textStyle="bold"
-		    android:textColor="#ffffff"
+		    android:textColor="#D98719"
 		    android:layout_weight="1"
 		    />
 	    <TextView
 		    android:text="@string/arrive"
 		    android:textStyle="bold"
-		    android:textColor="#ffffff"
+		    android:textColor="#D98719"
 		    android:layout_weight="1"
 		    />
 		<TextView
 		    android:text="@string/duration"
 		    android:textStyle="bold"
-		    android:textColor="#ffffff"
+		    android:textColor="#D98719"
 		    android:layout_weight="1"
 		    />
 		<TextView
 		    android:text="@string/train"
 			android:textStyle="bold"  
-			android:textColor="#ffffff"
+			android:textColor="#D98719"
 			android:layout_weight="1"
 			/>
 	        	
@@ -64,14 +64,32 @@
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content">
 	    
-	    <ListView android:id="@+id/android:list"
+	    <ExpandableListView android:id="@+id/android:list"
 	          android:layout_width="fill_parent"
-	        	android:layout_height="wrap_content"/>
+	        	android:layout_height="wrap_content"
+	        	/>
+	        	
+	     <LinearLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+	    >
+	  	
 	  	<TextView android:id="@+id/android:empty"
 	          android:layout_width="wrap_content"
 	        	android:layout_height="wrap_content"
 	        	android:text="@string/no_timetables"
+	        	android:paddingBottom="20dp"
 	        	/>
+	        	
+	     <Button android:id="@+id/android:retry"
+	          android:layout_width="wrap_content"
+	        	android:layout_height="wrap_content"
+	        	android:text="@string/sync_now"
+	        	android:onClick="syncRoute"
+	        	/>
+	        	
+	        	</LinearLayout>
      
      </LinearLayout>
 	

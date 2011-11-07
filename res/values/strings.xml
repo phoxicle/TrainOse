@@ -37,7 +37,7 @@
     <string name="ctxmenu_details">View Details</string>
     <string name="ctxmenu_seat_availability">Check Seat Availability</string>
     <string name="seats_open_new_window">This will open the OSE website in your phone\'s browser. Do you want to continue?</string>
-    <string name="no_timetables">No timetables... strange</string>
+    <string name="no_timetables">(no timetables)</string>
     <string name="sync_in_progress">Syncing. Please wait...</string>
     <string name="depart">Departs</string>
     <string name="arrive">Arrives</string>
@@ -47,10 +47,11 @@
     <string name="last_synced">Last sync:</string>
     <string name="copy_succesful">Text copied to clipboard</string>
     <string name="schedule">Train schedule:</string>
+    <string name="sync_now">Sync now</string>
     
     <!-- Exceptions -->
     <string name="exception_network">Network error</string>
-    <string name="exception_server">Server error</string>
+    <string name="exception_server">Server error. Please contact the developer if the problem persists.</string>
     <string name="exception">An error occurred</string>
     
     

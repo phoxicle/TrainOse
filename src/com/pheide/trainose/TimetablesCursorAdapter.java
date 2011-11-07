@@ -8,6 +8,7 @@
 package com.pheide.trainose;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,7 @@ public class TimetablesCursorAdapter extends CursorAdapter {
 	int mIdxDuration;
 	int mIdxTrain;
 	int mIdxTrainNum;
+	int mIdxDelay;
 
 	/**
 	 * Construct the adapter.
@@ -48,6 +50,7 @@ public class TimetablesCursorAdapter extends CursorAdapter {
 		mIdxDuration = cursor.getColumnIndex(TimetablesDbAdapter.KEY_DURATION);
 		mIdxTrain = cursor.getColumnIndex(TimetablesDbAdapter.KEY_TRAIN);
 		mIdxTrainNum = cursor.getColumnIndex(TimetablesDbAdapter.KEY_TRAIN_NUM);
+		mIdxDelay = cursor.getColumnIndex(TimetablesDbAdapter.KEY_DELAY);
 	}
 
 	/**
@@ -57,6 +60,9 @@ public class TimetablesCursorAdapter extends CursorAdapter {
 	public void bindView(View view, Context context, Cursor cursor) {
 		TextView tv = (TextView) view.findViewById(R.id.depart); 
 		tv.setText(cursor.getString(mIdxDepart));
+		if (!cursor.getString(mIdxDelay).equals("")) {
+			tv.setText(tv.getText() + "+");
+		}
 		
 		TextView tv1 = (TextView) view.findViewById(R.id.arrive); 
 		tv1.setText(cursor.getString(mIdxArrive)); 

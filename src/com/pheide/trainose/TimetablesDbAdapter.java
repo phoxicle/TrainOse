@@ -50,10 +50,12 @@ public class TimetablesDbAdapter extends AbstractDbAdapter {
      * @param train
      * @param trainNum
      * @param numLegs
+     * @param delay
      * @return rowId or -1 if failed
      */
     public long create(long routeId, String depart, String arrive, 
-    		String duration, String train, String trainNum, int numLegs) {
+    		String duration, String train, String trainNum, int numLegs,
+    		String delay) {
     	ContentValues args = new ContentValues();
     	args.put(KEY_ROUTE,routeId);
     	args.put(KEY_DEPART,depart);
@@ -62,6 +64,7 @@ public class TimetablesDbAdapter extends AbstractDbAdapter {
     	args.put(KEY_TRAIN,train);
     	args.put(KEY_TRAIN_NUM,trainNum);
     	args.put(KEY_NUM_LEGS,numLegs);
+    	args.put(KEY_DELAY, delay);
     	
     	return mDb.insert(DATABASE_TABLE, null,args);
     }

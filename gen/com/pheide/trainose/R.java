@@ -17,28 +17,33 @@ public final class R {
         public static final int icon=0x7f020000;
     }
     public static final class id {
+        public static final int android_retry=0x7f06000e;
         public static final int app_desc=0x7f060001;
-        public static final int arrive=0x7f060009;
-        public static final int confirm=0x7f060006;
-        public static final int depart=0x7f060008;
-        public static final int destination=0x7f060004;
-        public static final int duration=0x7f06000a;
-        public static final int last_synced=0x7f060007;
+        public static final int arrive=0x7f060008;
+        public static final int confirm=0x7f06000c;
+        public static final int count=0x7f060003;
+        public static final int delay=0x7f060009;
+        public static final int depart=0x7f060007;
+        public static final int destination=0x7f060005;
+        public static final int duration=0x7f06000f;
+        public static final int last_synced=0x7f06000d;
         public static final int more_info=0x7f060002;
-        public static final int source=0x7f060003;
-        public static final int train=0x7f06000b;
-        public static final int twoway=0x7f060005;
+        public static final int source=0x7f060004;
+        public static final int train=0x7f060006;
+        public static final int train_num=0x7f06000a;
+        public static final int twoway=0x7f06000b;
         public static final int version=0x7f060000;
     }
     public static final class layout {
         public static final int about_dialog=0x7f030000;
         public static final int autocomplete_item=0x7f030001;
-        public static final int main=0x7f030002;
-        public static final int route_edit=0x7f030003;
-        public static final int routes_list=0x7f030004;
-        public static final int routes_row=0x7f030005;
-        public static final int timetables_list=0x7f030006;
-        public static final int timetables_row=0x7f030007;
+        public static final int legs_row=0x7f030002;
+        public static final int main=0x7f030003;
+        public static final int route_edit=0x7f030004;
+        public static final int routes_list=0x7f030005;
+        public static final int routes_row=0x7f030006;
+        public static final int timetables_list=0x7f030007;
+        public static final int timetables_row=0x7f030008;
     }
     public static final class string {
         public static final int app_author=0x7f040001;
@@ -61,11 +66,12 @@ public final class R {
         public static final int destination=0x7f040012;
         public static final int download=0x7f040010;
         public static final int duration=0x7f040022;
-        public static final int exception=0x7f04002a;
+        public static final int exception=0x7f04002b;
         /**  Exceptions 
+ Exceptions 
          */
-        public static final int exception_network=0x7f040028;
-        public static final int exception_server=0x7f040029;
+        public static final int exception_network=0x7f040029;
+        public static final int exception_server=0x7f04002a;
         public static final int invalid_stations=0x7f040014;
         public static final int last_synced=0x7f040025;
         /**  New Route (RouteEdit.java) 
@@ -93,6 +99,7 @@ public final class R {
         public static final int sortBy=0x7f040024;
         public static final int source=0x7f040011;
         public static final int sync_in_progress=0x7f04001f;
+        public static final int sync_now=0x7f040028;
         public static final int to=0x7f040009;
         public static final int train=0x7f040023;
         public static final int twoway=0x7f040013;

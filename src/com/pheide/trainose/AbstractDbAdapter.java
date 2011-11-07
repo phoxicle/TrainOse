@@ -33,12 +33,14 @@ public abstract class AbstractDbAdapter {
         "create table timetables (_id integer primary key autoincrement, "
     	+ "route_id integer, depart text not null, arrive text not null, "
     	+ "duration text not null, train text not null, train_num text not null, " 
-    	+ "num_legs integer not null" 
+    	+ "num_legs integer not null, delay text not null" 
     	+ ");";
     protected static final String TABLE_CREATE_LEGS =    
-        "create table timetables (_id integer primary key autoincrement, "
-    	+ "leg_id integer, depart text not null, arrive text not null, "
-    	+ "duration text not null, train text not null, train_num text not null, " 
+        "create table legs (_id integer primary key autoincrement, "
+    	+ "source text not null, destination text not null, "
+    	+ "timetable_id integer, depart text not null, arrive text not null, "
+    	+ "train text not null, train_num text not null, "
+    	+ "delay text not null" 
     	+ ");";
 
     protected static final String DATABASE_NAME = "data";
@@ -56,6 +58,7 @@ public abstract class AbstractDbAdapter {
         public void onCreate(SQLiteDatabase db) {
             db.execSQL(TABLE_CREATE_ROUTES);
             db.execSQL(TABLE_CREATE_TIMETABLES);
+            db.execSQL(TABLE_CREATE_LEGS);
         }
 
         @Override

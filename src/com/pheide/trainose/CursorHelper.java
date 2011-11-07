@@ -35,5 +35,18 @@ public class CursorHelper {
 		return cursor.getString(cursor.getColumnIndex(columnName));
 	}
 	
+	/**
+	 * Convenience method to return the specified column 
+	 * in a Cursor as an int.
+	 * 
+	 * @param Cursor the managed cursor
+	 * @param columnName the column to retrieve
+	 * 
+	 * @return the column as an int
+	 */
+	public static int getInt(Cursor cursor, String columnName) {
+		return cursor.getInt(cursor.getColumnIndex(columnName));
+	}
+	
 	
 }
