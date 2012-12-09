@@ -52,6 +52,7 @@ public class FlatCharArrayAdapter extends ArrayAdapter<String> implements Filter
 			.replace('ό', 'ο')
 			.replace('ώ', 'ω')
 			.replace('ύ', 'υ')
+			.replace('ή', 'η')
 			;
 	}
 	
