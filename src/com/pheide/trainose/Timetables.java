@@ -505,7 +505,9 @@ public class Timetables extends ExpandableListActivity {
 		tv5.setText(CursorHelper.getString(cursor, LegsDbAdapter.KEY_DESTINATION));
 		
 		TextView tv6 = (TextView) view.findViewById(R.id.delay);
-		tv6.setText(CursorHelper.getString(cursor, LegsDbAdapter.KEY_DELAY));
+		// For now, don't display the delay, since it would invalidate the day caching...
+		//tv6.setText(CursorHelper.getString(cursor, LegsDbAdapter.KEY_DELAY));
+		tv6.setText(" ");
 		
 	}
 
