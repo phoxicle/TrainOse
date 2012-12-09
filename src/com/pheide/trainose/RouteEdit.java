@@ -7,6 +7,8 @@
 
 package com.pheide.trainose;
 
+import com.pheide.trainose.FlatCharArrayAdapter;
+
 import java.util.Arrays;
 
 import android.app.Activity;
@@ -17,7 +19,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
+
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -54,11 +56,11 @@ public class RouteEdit extends Activity {
         String[] stations = getResources().getStringArray(R.array.stations_array);
         
         mSourceTextView = (AutoCompleteTextView) findViewById(R.id.source);
-        ArrayAdapter<String> sourceAdapter = new ArrayAdapter<String>(this, R.layout.autocomplete_item, stations);
+        FlatCharArrayAdapter sourceAdapter = new FlatCharArrayAdapter(this, R.layout.autocomplete_item, stations);
         mSourceTextView.setAdapter(sourceAdapter);
         
         mDestinationTextView = (AutoCompleteTextView) findViewById(R.id.destination);
-        ArrayAdapter<String> destinationAdapter = new ArrayAdapter<String>(this, R.layout.autocomplete_item, stations);
+        FlatCharArrayAdapter destinationAdapter = new FlatCharArrayAdapter(this, R.layout.autocomplete_item, stations);
         mDestinationTextView.setAdapter(destinationAdapter);
         
         mTwoWayCheckBox = (CheckBox) findViewById(R.id.twoway);
