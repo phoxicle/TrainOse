@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    >
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:gravity="center_vertical"
+        >
+    
+    <TextView android:id="@+id/count"
+    	android:textColor="#999999"
+    	android:layout_width="15dp"
+    	/>
+    	
+    <TextView android:id="@+id/source"
+    	android:paddingLeft="10dp"
+    	android:textColor="#999999"
+    	android:layout_width="110dp"
+    	/>
+    	
+    <TextView android:id="@+id/destination"
+    	android:paddingLeft="10dp"
+    	android:textColor="#999999"
+    	android:layout_width="110dp"
+    	/>
+		
+	<TextView
+		android:paddingLeft="10dp"
+		android:layout_width="40dp"
+		/>
+		
+	<TextView android:id="@+id/train"
+		android:paddingLeft="10dp"
+		android:layout_width="50dp"
+		/>
+		
+</TableRow>
+
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:gravity="center_vertical"
+        >
+    <TextView 
+    	android:textColor="#999999"
+    	android:text=""
+    	android:layout_width="15dp"
+    	/>
+    	
+    <TextView android:id="@+id/depart"
+    	android:paddingLeft="10dp"
+    	android:textColor="#aaaaaa"
+    	android:layout_width="110dp"
+    	/>
+    	
+    <TextView android:id="@+id/arrive"
+    	android:paddingLeft="10dp"
+    	android:textColor="#aaaaaa"
+    	android:layout_width="110dp"
+    	/>
+    	
+    <TextView android:id="@+id/delay"
+    	android:paddingLeft="10dp"
+    	android:textColor="#ff0000"
+    	android:layout_width="40dp"
+    	/>
+		
+	<TextView android:id="@+id/train_num"
+		android:paddingLeft="10dp"
+		android:textColor="#999999"
+		android:layout_width="50dp"
+		/>
+		
+</TableRow>
+
+</TableLayout>
+

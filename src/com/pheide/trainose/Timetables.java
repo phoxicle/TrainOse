@@ -14,8 +14,9 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.ListActivity;
+import android.app.ExpandableListActivity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -24,10 +25,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.ClipboardManager;
 import android.view.ContextMenu;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.ViewGroup;
+import android.widget.CursorTreeAdapter;
+import android.widget.ExpandableListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
@@ -37,7 +42,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
  * 
  * @author Christine Gerpheide
  */
-public class Timetables extends ListActivity {
+public class Timetables extends ExpandableListActivity {
 	
 	private static final String TAG = "Timetables";
 	
@@ -61,6 +66,11 @@ public class Timetables extends ListActivity {
 	long mTimetableId;
 	ProgressDialog mDialog;
 	public static List<HashMap<String,String>> timetablesList = null;
+	
+	
+	private int mGroupIdColumnIndex; 
+    private ExpandableListAdapter mAdapter;
+    private int mCurrentLegCount = 0;
 	
 	/**
 	 * Initialize this view.
@@ -87,7 +97,7 @@ public class Timetables extends ListActivity {
         mTimetablesDbAdapter.open();
         
         this.populateList();
-        this.registerForContextMenu(this.getListView());
+        this.registerForContextMenu(this.getExpandableListView());
     }
     
     /* List methods */
@@ -127,9 +137,13 @@ public class Timetables extends ListActivity {
     private void populateListSorted(String sorting) {
         Cursor timetablesCursor = mTimetablesDbAdapter.fetchByRouteSorted(mRouteId, sorting);
         this.startManagingCursor(timetablesCursor);
-        TimetablesCursorAdapter timetables = new TimetablesCursorAdapter(this,timetablesCursor);
-        this.setListAdapter(timetables);
+        
+        mGroupIdColumnIndex = timetablesCursor.getColumnIndexOrThrow(TimetablesDbAdapter.KEY_ROWID);
+        mAdapter = new MyExpandableListAdapter(timetablesCursor,this);
+        this.setListAdapter(mAdapter);
     }
+    
+    
     
     /* Options menu */
     
@@ -265,6 +279,7 @@ public class Timetables extends ListActivity {
     protected void onPrepareDialog(int id, Dialog dialog) {
     	switch(id) {
     		case DIALOG_DETAIL_ID:
+    			/*
     			Cursor timetableCursor = mTimetablesDbAdapter.fetch(mTimetableId);
                 this.startManagingCursor(timetableCursor);
                 String delay = CursorHelper.getString(timetableCursor,TimetablesDbAdapter.KEY_DELAY);
@@ -273,6 +288,7 @@ public class Timetables extends ListActivity {
                 TextView tv = new TextView(this);
                 tv.setText("Delay: " + delay);
                 dialog.setContentView(tv);
+                */
     			break;
     	}
     }
@@ -362,6 +378,13 @@ public class Timetables extends ListActivity {
     }
     
     /**
+     * Called by synchronize button when there are no routes.
+     */
+    public void syncRoute(View v) {
+    	this.syncRoute();
+    }
+    
+    /**
      * Initialize a background process to synchronize this route.
      */
     protected void syncRoute() {
@@ -393,6 +416,7 @@ public class Timetables extends ListActivity {
     /**
      * Helper to return a row in a Cursor as a hash map.
      */
+//    TODO needed?
     public HashMap<String,String> fetchAsHashMap(long timetableId) {
     	Cursor timetableCursor = mTimetablesDbAdapter.fetch(timetableId);
         this.startManagingCursor(timetableCursor);
@@ -436,6 +460,93 @@ public class Timetables extends ListActivity {
 	   ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
 	   clipboard.setText(text);
 	   Toast.makeText(this, R.string.copy_succesful, Toast.LENGTH_SHORT).show();
+   }
+   
+   
+   public class MyExpandableListAdapter extends CursorTreeAdapter {
+	   LayoutInflater mInflater;
+		
+       public MyExpandableListAdapter(Cursor cursor, Context context) {
+    	   super(cursor, context);
+    	   mInflater = LayoutInflater.from(context); 
+       }
+
+       @Override
+       protected Cursor getChildrenCursor(Cursor groupCursor) {
+    	    LegsDbAdapter legsDbAdapter = new LegsDbAdapter(Timetables.this);
+      		legsDbAdapter.open();
+      		return legsDbAdapter.fetchByTimetable(
+      				CursorHelper.getLong(groupCursor, TimetablesDbAdapter.KEY_ROWID));
+       }
+
+	@Override
+	protected void bindChildView(View view, Context context, Cursor cursor,
+			boolean isLastChild) {
+		
+		TextView tv0 = (TextView) view.findViewById(R.id.count); 
+		tv0.setText(Integer.toString(mCurrentLegCount++) + '.');
+		
+		TextView tv = (TextView) view.findViewById(R.id.depart); 
+		tv.setText(CursorHelper.getString(cursor, LegsDbAdapter.KEY_DEPART));
+		
+		TextView tv1 = (TextView) view.findViewById(R.id.arrive); 
+		tv1.setText(CursorHelper.getString(cursor, LegsDbAdapter.KEY_ARRIVE));
+		
+		TextView tv3 = (TextView) view.findViewById(R.id.train); 
+		tv3.setText(CursorHelper.getString(cursor, LegsDbAdapter.KEY_TRAIN));
+		
+		TextView tv7 = (TextView) view.findViewById(R.id.train_num); 
+		tv7.setText(CursorHelper.getString(cursor, LegsDbAdapter.KEY_TRAIN_NUM));
+		
+		TextView tv4 = (TextView) view.findViewById(R.id.source); 
+		tv4.setText(CursorHelper.getString(cursor, LegsDbAdapter.KEY_SOURCE));
+		
+		TextView tv5 = (TextView) view.findViewById(R.id.destination); 
+		tv5.setText(CursorHelper.getString(cursor, LegsDbAdapter.KEY_DESTINATION));
+		
+		TextView tv6 = (TextView) view.findViewById(R.id.delay);
+		tv6.setText(CursorHelper.getString(cursor, LegsDbAdapter.KEY_DELAY));
+		
+	}
+
+	@Override
+	protected void bindGroupView(View view, Context context, Cursor cursor,
+			boolean isExpanded) {
+		mCurrentLegCount = 1; // reset leg counter
+		
+		TextView tv = (TextView) view.findViewById(R.id.depart); 
+		tv.setText(CursorHelper.getString(cursor, TimetablesDbAdapter.KEY_DEPART));
+		
+		TextView tv1 = (TextView) view.findViewById(R.id.arrive); 
+		tv1.setText(CursorHelper.getString(cursor, TimetablesDbAdapter.KEY_ARRIVE)); 
+		
+		TextView tv2 = (TextView) view.findViewById(R.id.duration); 
+		tv2.setText(CursorHelper.getString(cursor, TimetablesDbAdapter.KEY_DURATION)); 
+		
+		TextView tv3 = (TextView) view.findViewById(R.id.train); 
+		if (CursorHelper.getInt(cursor, TimetablesDbAdapter.KEY_NUM_LEGS) > 1) {
+			tv3.setText("*");
+		} else {
+			tv3.setText(CursorHelper.getString(cursor, TimetablesDbAdapter.KEY_TRAIN) 
+					+ " " + CursorHelper.getString(cursor, TimetablesDbAdapter.KEY_TRAIN_NUM));
+		}
+		
+	}
+
+	@Override
+	protected View newChildView(Context context, Cursor cursor, boolean isLastChild,
+			ViewGroup parent) {
+		View view = mInflater.inflate(R.layout.legs_row, parent, false); 
+		return view;
+	}
+
+	@Override
+	protected View newGroupView(Context context, Cursor cursor, boolean isLastChild,
+			ViewGroup parent) {
+		View view = mInflater.inflate(R.layout.timetables_row, parent, false); 
+		return view;
+	}
+
    }
     
 }

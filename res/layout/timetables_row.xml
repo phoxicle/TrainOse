@@ -2,26 +2,32 @@
 
 <TableRow xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
+        android:paddingLeft="40dp"
         >
     
     <TextView android:id="@+id/depart"
     	android:layout_weight="1"
-    	android:paddingLeft="10dp"
+    	android:padding="10dp"
+    	android:textColor="#ffffff"
     	/>
     <TextView android:id="@+id/arrive"
     	android:layout_weight="1"
-    	android:paddingLeft="10dp"
+    	android:padding="10dp"
+    	android:textColor="#ffffff"
     	/>
 	<TextView android:id="@+id/duration"
 		android:layout_weight="1"
-		android:paddingLeft="10dp"
+		android:padding="10dp"
+		android:textColor="#ffffff"
 		/>
 		
 	<TextView android:id="@+id/train"
 		android:layout_weight="1"
-		android:paddingLeft="10dp"
+		android:padding="10dp"
+		android:textColor="#ffffff"
 		/>
-        	
+		
 </TableRow>
+

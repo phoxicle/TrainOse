@@ -26,8 +26,10 @@ public class LegsDbAdapter extends AbstractDbAdapter {
 	public static final String KEY_TRAIN = "train";
 	public static final String KEY_TRAIN_NUM = "train_num";
 	public static final String KEY_DELAY = "delay";
+	public static final String KEY_SOURCE = "source";
+	public static final String KEY_DESTINATION = "destination";
 
-    private static final String DATABASE_TABLE = "timetables";
+    private static final String DATABASE_TABLE = "legs";
 
     /**
      * Constructor - takes the context to allow the database to be
@@ -47,16 +49,23 @@ public class LegsDbAdapter extends AbstractDbAdapter {
      * @param arrive
      * @param train
      * @param trainNum
+     * @param delay
+     * @param source
+     * @param destination
      * @return rowId or -1 if failed
      */
     public long create(long timetableId, String depart, String arrive, 
-    		String train, String trainNum) {
+    		String train, String trainNum, String delay, String source,
+    		String destination) {
     	ContentValues args = new ContentValues();
     	args.put(KEY_TIMETABLE,timetableId);
     	args.put(KEY_DEPART,depart);
     	args.put(KEY_ARRIVE,arrive);
     	args.put(KEY_TRAIN,train);
     	args.put(KEY_TRAIN_NUM,trainNum);
+    	args.put(KEY_DELAY,delay);
+    	args.put(KEY_SOURCE,source);
+    	args.put(KEY_DESTINATION,destination);
     	
     	return mDb.insert(DATABASE_TABLE, null,args);
     }

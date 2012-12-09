@@ -90,13 +90,14 @@ public class TimetablesSynchronizer {
 	            	 
 	            	 // Create the route, with some values from the legs for convenience
 	            	 int numLegs = legs.length();
-	            	 JSONObject firstLeg = legs.getJSONObject(0); // should always exist
-	            	 String train = firstLeg.getString("train");
-	            	 String trainNum = firstLeg.getString("trainNum");
-	            	 String depart = firstLeg.getString("depart");
-	            	 String arrive = legs.getJSONObject(numLegs - 1).getString("arrive");
-	            	 long timetableId = timetablesDbAdapter.create(routeId, depart, arrive,
-	            			 route.getString("duration"), train, trainNum, numLegs);
+	            	 JSONObject firstLeg = legs.getJSONObject(0); // one should always exist
+	            	 long timetableId = timetablesDbAdapter.create(routeId, 
+	            			 firstLeg.getString("depart"), 
+	            			 legs.getJSONObject(numLegs - 1).getString("arrive"), // last leg
+	            			 route.getString("duration"), 
+	            			 firstLeg.getString("train"), 
+	            			 firstLeg.getString("trainNum"), numLegs,
+	            			 firstLeg.getString("delay"));
 	            	 
 	            	 // Add legs for this timetable
 	            	 legsDbAdapter.deleteByTimetable(timetableId);
@@ -104,9 +105,11 @@ public class TimetablesSynchronizer {
 	            		 JSONObject leg = legs.getJSONObject(j);
 	            		 legsDbAdapter.create(timetableId, leg.getString("depart"),
 	            				 leg.getString("arrive"), leg.getString("train"), 
-	            				 leg.getString("trainNum"));
+	            				 leg.getString("trainNum"),leg.getString("delay"),
+	            				 leg.getString("source"),leg.getString("destination"));
 	            	 }
 	             }
+	             legsDbAdapter.close();
 	             timetablesDbAdapter.close();
 	    	}
 	    	
@@ -118,19 +121,19 @@ public class TimetablesSynchronizer {
 	    } catch (IOException e) { // Couldn't reach host
 	    	mActivity.runOnUiThread(new Runnable() {
         	    public void run() {
-        	        Toast.makeText(mActivity, "Network error", Toast.LENGTH_SHORT).show();
+        	        Toast.makeText(mActivity, mActivity.getString(R.string.exception_network), Toast.LENGTH_LONG).show();
         	    }
         	});
 	    } catch (JSONException e) { // JSON empty or not formatted
 	    	mActivity.runOnUiThread(new Runnable() {
         	    public void run() {
-        	        Toast.makeText(mActivity, "Server error", Toast.LENGTH_SHORT).show();
+        	        Toast.makeText(mActivity, mActivity.getString(R.string.exception_server), Toast.LENGTH_LONG).show();
         	    }
         	});
 	    }  catch (Exception e) { // Something else. Hmm...
 	    	mActivity.runOnUiThread(new Runnable() {
         	    public void run() {
-        	        Toast.makeText(mActivity, "An error occured", Toast.LENGTH_SHORT).show();
+        	        Toast.makeText(mActivity, mActivity.getString(R.string.exception), Toast.LENGTH_LONG).show();
         	    }
         	});
         }

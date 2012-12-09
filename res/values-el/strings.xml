@@ -37,7 +37,7 @@
     <string name="ctxmenu_details">Προβολή λεπτομερειών</string>
     <string name="ctxmenu_seat_availability">Έλεγχος πληρότητας</string>
     <string name="seats_open_new_window">Θα ανοίξει ένας ιστότοπος στο πρόγραμμα περιήγησης κινητού. Θέλετε να συνεχίσετε;</string>
-    <string name="no_timetables">Κανένα δρομολόγιο... περίεργο</string>
+    <string name="no_timetables">(κανένα δρομολόγιο)</string>
     <string name="sync_in_progress">Συγχρονίζει. Παρακαλώ περιμένετε...</string>
     <string name="depart">Φεύγει</string>
     <string name="arrive">Φτάνει</string>
@@ -47,5 +47,11 @@
     <string name="last_synced">Προηγούμενος συγχρονισμός:</string>
     <string name="copy_succesful">Έγινε αντιγραφή κειμένου</string>
     <string name="schedule">Δρομολόγιο τρένου:</string>
+    <string name="sync_now">Συγχρονίστε τώρα</string>
+    
+    <!-- Exceptions -->
+    <string name="exception_network">Σφάλμα δυκτύου</string>
+    <string name="exception_server">Σφάλμα στον σέρβερ. Να επικοινωνήσετε με την προγραμματίστρια αν το πρόβλημα παραμένει.</string>
+    <string name="exception">Προέκυψε κάποιο σφάλμα</string>
     
 </resources>
