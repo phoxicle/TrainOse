@@ -24,6 +24,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.ClipboardManager;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -33,6 +34,8 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.ViewGroup;
 import android.widget.CursorTreeAdapter;
 import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
@@ -211,7 +214,6 @@ public class Timetables extends ExpandableListActivity {
             ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         menu.add(0, COPY_ID, 0, R.string.ctxmenu_copy);
-        //menu.add(0, DETAILS_ID, 0, R.string.ctxmenu_details);
         menu.add(0, SEATS_ID, 0, R.string.ctxmenu_seat_availability);
     }
 
@@ -220,8 +222,11 @@ public class Timetables extends ExpandableListActivity {
      */
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-    	AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+    	ExpandableListContextMenuInfo info = (ExpandableListContextMenuInfo) item.getMenuInfo();
+    	
     	mTimetableId = info.id;
+    	Log.w("TEST","" + mTimetableId);
+    	
         switch(item.getItemId()) {
             case COPY_ID:
             	this.copyTimetableToClipboard(mTimetableId);
@@ -252,6 +257,7 @@ public class Timetables extends ExpandableListActivity {
      * Open a web browser showing the seat availability for this route.
      */
     protected void openSeatAvailability() {
+    	//http://tickets.trainose.gr/dromologia/#apo=ΒΟΛΟ;pros=ΠΑΤΡ;date=2012-12-09;rtn_date=2012-12-09;trip=1
     	//http://tickets.trainose.gr/dromologia/touch_seats.html?c=krathsh_wt&op=trip_available_seats&trip=56|ŒëŒòŒóŒù|ŒòŒïŒ£Œ£|20110210|19.29|20110210|23.55|11:&lang=gr
     	HashMap<String,String> timetableMap = this.fetchAsHashMap(mTimetableId);
     	try {
