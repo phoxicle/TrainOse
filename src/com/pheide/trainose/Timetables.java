@@ -257,8 +257,9 @@ public class Timetables extends ExpandableListActivity {
      * Open a web browser showing the seat availability for this route.
      */
     protected void openSeatAvailability() {
-    	//http://tickets.trainose.gr/dromologia/#apo=ΒΟΛΟ;pros=ΠΑΤΡ;date=2012-12-09;rtn_date=2012-12-09;trip=1
-    	//http://tickets.trainose.gr/dromologia/touch_seats.html?c=krathsh_wt&op=trip_available_seats&trip=56|ŒëŒòŒóŒù|ŒòŒïŒ£Œ£|20110210|19.29|20110210|23.55|11:&lang=gr
+
+    	// TODO release 2: send all legs needed for this route
+    	
     	HashMap<String,String> timetableMap = this.fetchAsHashMap(mTimetableId);
     	try {
 	    	 Uri seatsAvailabilityUri = Uri.parse("http://www.pheide.com/Services/TrainOse/seatAvailability.php?"
@@ -448,13 +449,33 @@ public class Timetables extends ExpandableListActivity {
      * @return the readable timetable string
      */
     protected String getStringForTimetableFromCursor(Cursor timetableCursor) {
-    	String depart = CursorHelper.getString(timetableCursor,TimetablesDbAdapter.KEY_DEPART);
-        String arrive = CursorHelper.getString(timetableCursor,TimetablesDbAdapter.KEY_ARRIVE);
-        String duration = CursorHelper.getString(timetableCursor,TimetablesDbAdapter.KEY_DURATION);
-        String train = CursorHelper.getString(timetableCursor,TimetablesDbAdapter.KEY_TRAIN)
-        		+ " " + CursorHelper.getString(timetableCursor,TimetablesDbAdapter.KEY_TRAIN_NUM);
-        
-        return depart + " - " + arrive + " (" + duration + ") " + train;
+    	
+    	// Copy information for each leg
+    	
+    	LegsDbAdapter legsDbAdapter = new LegsDbAdapter(this);
+   		legsDbAdapter.open();
+   		Cursor legsCursor = legsDbAdapter.fetchByTimetable(
+   				CursorHelper.getLong(timetableCursor, TimetablesDbAdapter.KEY_ROWID));
+   		this.startManagingCursor(legsCursor);
+   		
+   		String text = new String();
+   		
+   		for (legsCursor.moveToFirst(); legsCursor.isAfterLast() == false;
+   				legsCursor.moveToNext()) {
+   			String source = CursorHelper.getString(legsCursor,LegsDbAdapter.KEY_SOURCE);
+   	        String destination = CursorHelper.getString(legsCursor,LegsDbAdapter.KEY_DESTINATION);
+   			
+   			String depart = CursorHelper.getString(legsCursor,LegsDbAdapter.KEY_DEPART);
+   	        String arrive = CursorHelper.getString(legsCursor,LegsDbAdapter.KEY_ARRIVE);
+   	        String train = CursorHelper.getString(legsCursor,LegsDbAdapter.KEY_TRAIN)
+   	        		+ " " + CursorHelper.getString(legsCursor,LegsDbAdapter.KEY_TRAIN_NUM);
+   	        
+   	        text += source + " -> " + destination + "\n";
+   	        text += depart + " - " + arrive + " " + train + "\n";
+		}
+		legsCursor.close();
+		
+        return text;
    }
    
     /**
