@@ -273,15 +273,15 @@ public class Timetables extends ExpandableListActivity {
    			
    			String depart = CursorHelper.getString(legsCursor,LegsDbAdapter.KEY_DEPART);
    	        String arrive = CursorHelper.getString(legsCursor,LegsDbAdapter.KEY_ARRIVE);
-   	        String train = CursorHelper.getString(legsCursor,LegsDbAdapter.KEY_TRAIN_NUM);
+   	        String train = CursorHelper.getString(legsCursor,LegsDbAdapter.KEY_TRAIN)
+   	        		+ " " + CursorHelper.getString(legsCursor,LegsDbAdapter.KEY_TRAIN_NUM);
    	        
    	        try {
 	   	        url += "from[]=" + URLEncoder.encode(source,"UTF-8") 
 	   	        	+ "&to[]=" + URLEncoder.encode(destination,"UTF-8")
 	   	        	+ "&depart[]=" + URLEncoder.encode(depart,"UTF-8")
 	   	        	+ "&arrive[]=" + URLEncoder.encode(arrive,"UTF-8")
-	   	        	+ "&trainNum[]=" + URLEncoder.encode(train,"UTF-8")
-	   	        	+ "&";
+	   	        	+ "&trainNum[]=" + URLEncoder.encode(train,"UTF-8");
    	        } catch (Exception e) {
    	    		//TODO log encoding exception
    	        }
@@ -503,6 +503,10 @@ public class Timetables extends ExpandableListActivity {
      * @param String the text to copy
      */
    protected void copyTextToClipboard(String text) {
+	   // First add ad for this app
+	   text += "\n(" +  this.getText(R.string.copied_route_intro)
+	   		+ " " +  this.getText(R.string.app_name) + ")"; 
+	   
 	   ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
 	   clipboard.setText(text);
 	   Toast.makeText(this, R.string.copy_succesful, Toast.LENGTH_SHORT).show();

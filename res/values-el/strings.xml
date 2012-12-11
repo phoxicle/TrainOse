@@ -46,6 +46,7 @@
     <string name="sortBy">Ταξινόμηση κατά</string>
     <string name="last_synced">Προηγούμενος συγχρονισμός:</string>
     <string name="copy_succesful">Έγινε αντιγραφή κειμένου</string>
+    <string name="copied_route_intro">Ανακτηθεί από android</string>
     <string name="schedule">Δρομολόγιο τρένου:</string>
     <string name="sync_now">Συγχρονίστε τώρα</string>
     

@@ -46,6 +46,7 @@
     <string name="sortBy">Sort By</string>
     <string name="last_synced">Last sync:</string>
     <string name="copy_succesful">Text copied to clipboard</string>
+    <string name="copied_route_intro">Retrieved via android</string>
     <string name="schedule">Train schedule:</string>
     <string name="sync_now">Sync now</string>
     
@@ -53,7 +54,6 @@
     <string name="exception_network">Network error</string>
     <string name="exception_server">Server error. Please contact the developer if the problem persists.</string>
     <string name="exception">An error occurred</string>
-    
     
    <string-array name="stations_array">
 
