@@ -264,7 +264,7 @@ public class Timetables extends ExpandableListActivity {
    		Cursor legsCursor = legsDbAdapter.fetchByTimetable(mTimetableId);
    		this.startManagingCursor(legsCursor);
    		
-   		String url = "http://www.pheide.com/Services/TrainOse/seatAvailability_new.php?";
+   		String url = "http://www.pheide.com/Services/TrainOse/seatAvailability.php?";
    		
    		for (legsCursor.moveToFirst(); legsCursor.isAfterLast() == false;
    				legsCursor.moveToNext()) {
