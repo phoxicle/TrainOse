@@ -258,21 +258,40 @@ public class Timetables extends ExpandableListActivity {
      */
     protected void openSeatAvailability() {
 
-    	// TODO release 2: send all legs needed for this route
     	
-    	HashMap<String,String> timetableMap = this.fetchAsHashMap(mTimetableId);
-    	try {
-	    	 Uri seatsAvailabilityUri = Uri.parse("http://www.pheide.com/Services/TrainOse/seatAvailability.php?"
-	         		+ "from=" + URLEncoder.encode(mSourceTitle,"UTF-8") 
-	         		+ "&to=" + URLEncoder.encode(mDestinationTitle,"UTF-8")
-	         		+ "&depart=" + timetableMap.get(TimetablesDbAdapter.KEY_DEPART)
-	         		+ "&arrive=" + timetableMap.get(TimetablesDbAdapter.KEY_ARRIVE)
-	         		+ "&trainNum=" + timetableMap.get(TimetablesDbAdapter.KEY_TRAIN_NUM));
-	    	 Intent intent = new Intent(Intent.ACTION_VIEW, seatsAvailabilityUri);
-	    	 this.startActivity(intent);
-    	} catch (Exception e) {
-    		//TODO log encoding exception
-    	}
+    	LegsDbAdapter legsDbAdapter = new LegsDbAdapter(this);
+   		legsDbAdapter.open();
+   		Cursor legsCursor = legsDbAdapter.fetchByTimetable(mTimetableId);
+   		this.startManagingCursor(legsCursor);
+   		
+   		String url = "http://www.pheide.com/Services/TrainOse/seatAvailability_new.php?";
+   		
+   		for (legsCursor.moveToFirst(); legsCursor.isAfterLast() == false;
+   				legsCursor.moveToNext()) {
+   			String source = CursorHelper.getString(legsCursor,LegsDbAdapter.KEY_SOURCE);
+   	        String destination = CursorHelper.getString(legsCursor,LegsDbAdapter.KEY_DESTINATION);
+   			
+   			String depart = CursorHelper.getString(legsCursor,LegsDbAdapter.KEY_DEPART);
+   	        String arrive = CursorHelper.getString(legsCursor,LegsDbAdapter.KEY_ARRIVE);
+   	        String train = CursorHelper.getString(legsCursor,LegsDbAdapter.KEY_TRAIN_NUM);
+   	        
+   	        try {
+	   	        url += "from[]=" + URLEncoder.encode(source,"UTF-8") 
+	   	        	+ "&to[]=" + URLEncoder.encode(destination,"UTF-8")
+	   	        	+ "&depart[]=" + URLEncoder.encode(depart,"UTF-8")
+	   	        	+ "&arrive[]=" + URLEncoder.encode(arrive,"UTF-8")
+	   	        	+ "&trainNum[]=" + URLEncoder.encode(train,"UTF-8")
+	   	        	+ "&";
+   	        } catch (Exception e) {
+   	    		//TODO log encoding exception
+   	        }
+		}
+   		
+		legsCursor.close();
+		
+		Uri seatsAvailabilityUri = Uri.parse(url);
+		Intent intent = new Intent(Intent.ACTION_VIEW, seatsAvailabilityUri);
+   	 	this.startActivity(intent);
     }
     
     /* Dialogs */
@@ -449,7 +468,7 @@ public class Timetables extends ExpandableListActivity {
      * @return the readable timetable string
      */
     protected String getStringForTimetableFromCursor(Cursor timetableCursor) {
-    	
+    	// TODO implement as toString() functions
     	// Copy information for each leg
     	
     	LegsDbAdapter legsDbAdapter = new LegsDbAdapter(this);
