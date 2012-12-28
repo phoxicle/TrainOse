@@ -92,16 +92,25 @@ public class RouteEdit extends Activity {
     		return false;
     	}
     	
-    	// Capitalize first letter, lowercase the rest
-    	mSourceTextView.setText(sourceText.substring(0, 1).toUpperCase() 
-    			+ sourceText.substring(1).toLowerCase());
-    	mDestinationTextView.setText(destinationText.substring(0, 1).toUpperCase() 
-    			+ destinationText.substring(1).toLowerCase());
+    	// Prepare array of stations to easily check if we have a valid station
+    	String[] stationsOrig = getResources().getStringArray(R.array.stations_array);
     	
-    	String[] stations = getResources().getStringArray(R.array.stations_array);
-        Arrays.sort(stations);
-        if (Arrays.binarySearch(stations, mSourceTextView.getText().toString()) > 0
-        	&& Arrays.binarySearch(stations, mDestinationTextView.getText().toString()) > 0) {
+        Arrays.sort(stationsOrig);
+        String[] stations = stationsOrig.clone();
+        for (int i=0; i<stations.length; ++i) {
+            stations[i] = stations[i].toLowerCase();
+        }
+        
+        String source = mSourceTextView.getText().toString().toLowerCase();
+        String destination = mDestinationTextView.getText().toString().toLowerCase();
+        
+        int sourceIdx = Arrays.binarySearch(stations, source);
+        int destIdx = Arrays.binarySearch(stations, destination);
+        
+        if (sourceIdx > 0 && destIdx > 0) {
+        	
+        	mSourceTextView.setText(stationsOrig[sourceIdx]);
+        	mDestinationTextView.setText(stationsOrig[destIdx]);
             return true;
         } else {
         	return false;

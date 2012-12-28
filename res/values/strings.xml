@@ -56,348 +56,200 @@
     <string name="exception">An error occurred</string>
     
    <string-array name="stations_array">
+   <item>Agios Georgios (4th km Ath-Chalkida)</item><item>Αγ. Γεώργιος (4ο χλμ Αθήνα-Χαλκίδα)</item>
+  <item>Agioi Anargyroi (Suburban)</item><item>Αγ. Ανάργυροι (Προαστιακός)</item>
+<item>Agios Georgios of Ferres</item><item>Αγ. Γεώργιος Φερρών</item>
+<item>Agioi Theodoroi</item><item>Αγ. Θεόδωροι</item>
+<item>Agios Thomas</item><item>Αγ. Θωμάς</item>
+<item>Agios Stefanos</item><item>Αγ. Στέφανος</item>
+<item>Aggeie</item><item>Αγγείαι</item>
 
- 
-<item>Αγ. Γεώργιος (4ο χλμ Αθήνα-Χαλκίδα)</item> 
-<item>Agios Georgios (4th km Ath-Chalkida)</item> 
-<item>Αγ. Ανάργυροι (Προαστιακός)</item> 
-<item>Agioi Anargyroi (Suburban)</item> 
-<item>Αγ. Γεώργιος Φερρών</item> 
-<item>Agios Georgios of Ferres</item> 
-<item>Αγ. Θεόδωροι</item> 
-<item>Agioi Theodoroi</item> 
-<item>Αγ. Θωμάς</item> 
-<item>Agios Thomas</item> 
-<item>Αγ. Στέφανος</item> 
-<item>Agios Stefanos</item> 
-<item>Αγγείαι</item> 
-<item>Aggeie</item> 
-<item>Άδενδρο</item> 
-<item>Adendro</item> 
-<!-- 
-<item>Αεροδρόμιο Σπάτων ✈</item> 
-<item>Athens International Airport ✈</item> 
- -->
-<item>Αθήνα</item> 
-<item>Athens</item> 
-<item>Αιγίνιο</item> 
-<item>Aiginio</item> 
-<item>Αίγιο</item> 
-<item>Aegion</item> 
-<item>Ακράτα-Κράθιο</item> 
-<item>Akrata-Krathion</item> 
-<item>Αλεξάνδρεια</item> 
-<item>Alexandreia</item> 
-<item>Αλεξανδρούπολη</item> 
-<item>Alexandroupoli</item> 
-<item>Αλίαρτος</item> 
-<item>Aliartos</item> 
-<item>Αλφειός</item> 
-<item>Alfeios</item> 
-<item>Αμαλιάδα</item> 
-<item>Amaliada</item> 
-<item>Αμφίκλεια</item> 
-<item>Amfikleia</item> 
-<item>Αμύνταιο</item> 
-<item>Amyntaio</item> 
-<item>Άνω Λιόσια</item> 
-<item>Ano Liosia</item> 
-<item>Αργος</item> 
-<item>Argos</item> 
-<item>Αρμένιο</item> 
-<item>Armenio</item> 
-<item>Άρνισσα</item> 
-<item>Arnissa</item> 
-<item>Ασπρόπυργος</item> 
-<item>Aspropyrgos</item> 
-<item>Ασπρόχωμα</item> 
-<item>Asprochoma</item> 
-<item>Αυλίδα</item> 
-<item>Avlida</item> 
-<item>Αυλώνα</item> 
-<item>Avlona</item> 
-<item>Αφίδναι</item> 
-<item>Afidnai</item> 
-<item>Αχαΐα</item> 
-<item>Achaia</item> 
-<item>Αχαρνές</item> 
-<item>Acharnes</item> 
-<item>Αχλαδόκαμπος</item> 
-<item>Achladokambos</item> 
-<item>Βαλύρα</item> 
-<item>Valyra</item> 
-<item>Βελεστίνο</item> 
-<item>Velestino</item> 
-<item>Βέροια</item> 
-<item>Veroia</item> 
-<item>Βόλος</item> 
-<item>Volos</item> 
-<item>Βυρώνεια</item> 
-<item>Vyronia</item> 
-<item>Γάζωρος</item> 
-<item>Gazoros</item> 
-<item>Γαλλικός</item> 
-<item>Gallikos</item> 
-<item>Δαυλεία</item> 
-<item>Davleia</item> 
-<item>Δεκέλεια</item> 
-<item>Dekelia</item> 
-<item>Δήλεσι (2ο χλμ Αθήνα-Χαλκίδα)</item> 
-<item>Dilesi (2nd km in Ath-Chalkida)</item> 
-<item>Διακοφτό</item> 
-<item>Diakofto</item> 
-<item>Δίκαια</item> 
-<item>Dikaia</item> 
-<item>Διδυμότειχο</item> 
-<item>Didymoteichon</item> 
-<item>Δομοκός</item> 
-<item>Domokos</item> 
-<item>Δοξαράς</item> 
-<item>Doxaras</item> 
-<item>Δράμα</item> 
-<item>Drama</item> 
-<item>Δουκίσσης Πλακεντίας</item> 
-<item>Doukissis Plakentias</item> 
-<item>Εδεσσα</item> 
-<item>Edessa</item> 
-<item>Ειδομένη</item> 
-<item>Idomeni</item> 
-<item>Ελαιοχώρι</item> 
-<item>Elaiochori</item> 
-<item>Επισκοπή Νάουσας</item> 
-<item>Episkopi of Naoussa</item> 
-<item>Ευαγγελισμός Τεμπών</item> 
-<item>Evangelismos (Tembi)</item> 
-<item>Ζαχάρω</item> 
-<item>Zacharo</item> 
-<item>Ζευγολάτειο</item> 
-<item>Zevgolateio</item> 
-<item>Ηράκλειο</item> 
-<item>Iraklio</item> 
-<item>Θαυμακός</item> 
-<item>Thavmakos</item> 
-<item>Θέρμες</item> 
-<item>Thermes</item> 
-<item>Θεσσαλονίκη</item> 
-<item>Thessaloniki</item> 
-<item>Θήβα</item> 
-<item>Thiva</item> 
-<item>Καλάβρυτα</item> 
-<item>Kalavryta</item> 
-<item>Καλαμάτα</item> 
-<item>Kalamata</item> 
-<item>Καλαμπάκα</item> 
-<item>Kalambaka</item> 
-<item>Καλό Νερό</item> 
-<item>Kalo Nero</item> 
-<item>Καλοχώρι-Παντείχι</item> 
-<item>Kalochori-Pantichi</item> 
-<item>Καρδίτσα</item> 
-<item>Karditsa</item> 
-<item>Καστανάς</item> 
-<item>Kastanas</item> 
-<item>Κατάκωλο</item> 
-<item>Katakolo</item> 
-<item>Κατερίνη</item> 
-<item>Katerini</item> 
-<item>Κηφισίας</item> 
-<item>Kifissias</item> 
-<item>Κιάτο</item> 
-<item>Kiato</item> 
-<item>Κιλκίς</item> 
-<item>Kilkis</item> 
-<item>Κινέττα</item> 
-<item>Kinetta</item> 
-<item>Κοζάνη</item> 
-<item>Kozani</item> 
-<item>Κομοτηνή</item> 
-<item>Komotini</item> 
-<item>Κόμανος</item> 
-<item>Komanos</item> 
-<item>Κόρινθος</item> 
-<item>Korinthos</item> 
-<item>Κορινός</item> 
-<item>Korinos</item> 
-<item>Κορωπί</item> 
-<item>Koropi</item> 
-<item>Κρέστενα</item> 
-<item>Krestena</item> 
-<item>Κυπαρίσσια</item> 
-<item>Kyparissia</item> 
-<item>Κυφαιρά</item> 
-<item>Kyfaira</item> 
-<item>Κυψέλη Λάρισσας</item> 
-<item>Kypseli (@Larissa)</item> 
-<item>Λαμία</item> 
-<item>Lamia</item> 
-<item>Λάρισα</item> 
-<item>Larissa</item> 
-<item>Λατομείο (@Μελισσιάτικα)</item> 
-<item>Latomeio (@Melissiatika)</item> 
-<item>Λειανοκλάδι</item> 
-<item>Lianokladi</item> 
-<item>Λειβαδειά</item> 
-<item>Levadia</item> 
-<item>Λεβαδειά Κερκίνης</item> 
-<item>Livadia Kerkinis</item> 
-<item>Λεπτοκαρυά</item> 
-<item>Leptokarya</item> 
-<item>Λεύκα</item> 
-<item>Lefka</item> 
-<item>Λευκοθέα Αλιστράτης</item> 
-<item>Lefkothea Alistratis</item> 
-<item>Λιλαία</item> 
-<item>Lilaia</item> 
-<item>Λιτόχωρο</item> 
-<item>Litochoro</item> 
-<item>Μαγούλα (Ελευσίνα)</item> 
-<item>Magoula (Elefsina)</item> 
-<item>Μέγαρα</item> 
-<item>Megara</item> 
-<item>Μεγάλο Σπήλαιο</item> 
-<item>Megalo Spilaio</item> 
-<item>Μεθώνη</item> 
-<item>Methoni</item> 
-<item>Μελιά Πλατυκάμπου</item> 
-<item>Melia of Platykambos</item> 
-<item>Μελισσιάτικα</item> 
-<item>Melissiatika</item> 
-<item>Μεσσήνη</item> 
-<item>Messini</item> 
-<item>Μεταμόρφωση</item> 
-<item>Metamorfosi</item> 
-<item>Μουριές</item> 
-<item>Mouries</item> 
-<item>Μπράλος</item> 
-<item>Bralos</item> 
-<item>Μύλοι Ναυπλίου</item> 
-<item>Myloi of Nafplio</item> 
-<item>Μυκήνες</item> 
-<item>Mykinai</item> 
-<item>Νάουσα</item> 
-<item>Naoussa</item> 
-<item>Ναύπλιο</item> 
-<item>Nafplio</item> 
-<item>Ναυπηγεια Χαλκίδας (χλμ 13)</item> 
-<item>Chalkida shipyards (13th km)</item> 
-<item>Νέα Πέραμος</item> 
-<item>Nea Peramos</item> 
-<item>Νεμέα</item> 
-<item>Nemea</item> 
-<item>Νέο Πετρίτσι</item> 
-<item>Neo Petritsi</item> 
-<item>Νέοι Πόροι</item> 
-<item>Neoi Poroi</item> 
-<item>Νεραντζιώτισσα</item> 
-<item>Nerantziotissa</item> 
-<item>Ξάνθη</item> 
-<item>Xanthi</item> 
-<item>Ξεχασμένη Ημαθίας</item> 
-<item>Xechasmeni of Imathia</item> 
-<item>Ξυλόκαστρο</item> 
-<item>Xylokastro</item> 
-<item>Ξυνιάδα</item> 
-<item>Xyniada</item> 
-<item>Οινόη</item> 
-<item>Inoi</item> 
-<item>Οινόφυτα</item> 
-<item>Oinofyta</item> 
-<item>Ολυμπία</item> 
-<item>Olympia</item> 
-<item>Ορεστιάδα</item> 
-<item>Orestiada</item> 
-<item>Ορφανά</item> 
-<item>Orfana</item> 
-<item>Παιανία - Κάντζα</item> 
-<item>Paiania - Kantza</item> 
-<item>Παλαιοφάρσαλος</item> 
-<item>Palaeofarsalos</item> 
-<item>Παλλήνη</item> 
-<item>Pallini</item> 
-<item>Παρθένι</item> 
-<item>Partheni</item> 
-<item>Πάτρα</item> 
-<item>Patra</item> 
-<item>Πειραιάς</item> 
-<item>Piraeus</item> 
-<item>Πεντέλη</item> 
-<item>Penteli</item> 
-<item>Πλατύ</item> 
-<item>Platy</item> 
-<item>Πολύκαστρο</item> 
-<item>Polykastro</item> 
-<item>Προμαχώνας</item> 
-<item>Promachonas</item> 
-<item>Πτολεμαΐδα</item> 
-<item>Ptolemaida</item> 
-<item>Πύθιο Διδυμοτείχου</item> 
-<item>Pythion of Didymoteicho</item> 
-<item>Πύργος Ηλείας</item> 
-<item>Pyrgos Ilias</item> 
-<item>Ραψάνη</item> 
-<item>Rapsani</item> 
-<item>Ρέντη</item> 
-<item>Renti (Agiou Ioanni Renti)</item> 
-<item>Ριζόμυλο Φερρών</item> 
-<item>Rizomylos (Ferres)</item> 
-<item>Ρίο</item> 
-<item>Rio</item> 
-<item>Ροδόπολις</item> 
-<item>Rodopolis</item> 
-<item>Ρουφ</item> 
-<item>Rouf</item> 
-<item>Σέρρες</item> 
-<item>Serres</item> 
-<item>Σιδηρόκαστρο</item> 
-<item>Sidirokastro</item> 
-<item>Σίνδος</item> 
-<item>Sindos</item> 
-<item>Σκύδρα</item> 
-<item>Skydra</item> 
-<item>Σουφλι</item> 
-<item>Soufli</item> 
-<item>Σταυρούπολη Ξάνθης</item> 
-<item>Stavroupoli of Xanthi</item> 
-<item>Στενό</item> 
-<item>Steno</item> 
-<item>Στεφανοβίκειο</item> 
-<item>Stefanovikeio</item> 
-<item>Στρυμώνας</item> 
-<item>Strymonas</item> 
-<item>Στυλίδα</item> 
-<item>Stylida</item> 
-<item>Στυρφακά</item> 
-<item>Stirfaka</item> 
-<item>Σφενδάλη</item> 
-<item>Sfendali</item> 
-<item>Τανάγρα</item> 
-<item>Tanagra</item> 
-<item>Τιθορέα</item> 
-<item>Tithorea</item> 
-<item>Τρίκαλα</item> 
-<item>Trikala</item> 
-<item>Τριπολη</item> 
-<item>Tripoli</item> 
-<item>Τυχερό</item> 
-<item>Tychero</item> 
-<item>Φέρρες</item> 
-<item>Ferres</item> 
-<item>Φλώρινα</item> 
-<item>Florina</item> 
-<item>Φωτολίβος</item> 
-<item>Fotolivos</item> 
-<item>Χάλκη</item> 
-<item>Chalki</item> 
-<item>Χαλκίδα</item> 
-<item>Chalkida</item> 
-<item>Χιλιομίδι</item> 
-<item>Chiliomidi</item> 
-<item>Χλμ 18 Λάρισας-Βόλου</item> 
-<item>18th km Larissa-Volos</item> 
-<item>Χλμ 19 Λάρισας-Βόλου</item> 
-<item>19th km Larissa-Volos</item> 
-<item>Χέρσος</item> 
-<item>Hersos</item> 
+<item>Adendro</item><item>Άδενδρο</item>
+<!-- <item>Athens International Airport ✈</item><item>Αεροδρόμιο Σπάτων ✈</item> -->
+<item>Athens</item><item>Αθήνα</item>
+<item>Aiginio</item><item>Αιγίνιο</item>
+<item>Aegion</item><item>Αίγιο</item>
+<item>Akrata-Krathion</item><item>Ακράτα-Κράθιο</item>
+<item>Alexandreia</item><item>Αλεξάνδρεια</item>
+<item>Alexandroupoli</item><item>Αλεξανδρούπολη</item>
+<item>Aliartos</item><item>Αλίαρτος</item>
+<item>Alfeios</item><item>Αλφειός</item>
+<item>Amaliada</item><item>Αμαλιάδα</item>
+<item>Amfikleia</item><item>Αμφίκλεια</item>
+<item>Amyntaio</item><item>Αμύνταιο</item>
+
+<item>Ano Liosia</item><item>Άνω Λιόσια</item>
+<item>Argos</item><item>Αργος</item>
+<item>Armenio</item><item>Αρμένιο</item>
+<item>Arnissa</item><item>Άρνισσα</item>
+<item>Aspropyrgos</item><item>Ασπρόπυργος</item>
+<item>Asprochoma</item><item>Ασπρόχωμα</item>
+<item>Avlida</item><item>Αυλίδα</item>
+<item>Avlona</item><item>Αυλώνα</item>
+<item>Afidnai</item><item>Αφίδναι</item>
+<item>Achaia</item><item>Αχαΐα</item>
+<item>Acharnes</item><item>Αχαρνές</item>
+<item>Achladokambos</item><item>Αχλαδόκαμπος</item>
+<item>Valyra</item><item>Βαλύρα</item>
+
+<item>Velestino</item><item>Βελεστίνο</item>
+<item>Veroia</item><item>Βέροια</item>
+<item>Volos</item><item>Βόλος</item>
+<item>Vyronia</item><item>Βυρώνεια</item>
+<item>Gazoros</item><item>Γάζωρος</item>
+<item>Gallikos</item><item>Γαλλικός</item>
+
+
+
+<item>Davleia</item><item>Δαυλεία</item>
+<item>Dekelia</item><item>Δεκέλεια</item>
+<item>Dilesi (2nd km in Ath-Chalkida)</item><item>Δήλεσι (2ο χλμ Αθήνα-Χαλκίδα)</item>
+<item>Diakofto</item><item>Διακοφτό</item>
+<item>Dikaia</item><item>Δίκαια</item>
+<item>Didymoteichon</item><item>Διδυμότειχο</item>
+<item>Domokos</item><item>Δομοκός</item>
+<item>Doxaras</item><item>Δοξαράς</item>
+<item>Drama</item><item>Δράμα</item>
+<item>Doukissis Plakentias</item><item>Δουκίσσης Πλακεντίας</item>
+<item>Edessa</item><item>Εδεσσα</item>
+<item>Idomeni</item><item>Ειδομένη</item>
+<item>Elaiochori</item><item>Ελαιοχώρι</item>
+
+<item>Episkopi of Naoussa</item><item>Επισκοπή Νάουσας</item>
+<item>Evangelismos (Tembi)</item><item>Ευαγγελισμός Τεμπών</item>
+<item>Zacharo</item><item>Ζαχάρω</item>
+<item>Zevgolateio</item><item>Ζευγολάτειο</item>
+<item>Iraklio</item><item>Ηράκλειο</item>
+<item>Thavmakos</item><item>Θαυμακός</item>
+<item>Thermes</item><item>Θέρμες</item>
+<item>Thessaloniki</item><item>Θεσσαλονίκη</item>
+<item>Thiva</item><item>Θήβα</item>
+
+
+<item>Kalavryta</item><item>Καλάβρυτα</item>
+<item>Kalamata</item><item>Καλαμάτα</item>
+<item>Kalambaka</item><item>Καλαμπάκα</item>
+<item>Kalo Nero</item><item>Καλό Νερό</item>
+<item>Kalochori-Pantichi</item><item>Καλοχώρι-Παντείχι</item>
+<item>Karditsa</item><item>Καρδίτσα</item>
+<item>Kastanas</item><item>Καστανάς</item>
+<item>Katakolo</item><item>Κατάκωλο</item>
+<item>Katerini</item><item>Κατερίνη</item>
+<item>Kifissias</item><item>Κηφισίας</item>
+<item>Kiato</item><item>Κιάτο</item>
+<item>Kilkis</item><item>Κιλκίς</item>
+<item>Kinetta</item><item>Κινέττα</item>
+
+<item>Kozani</item><item>Κοζάνη</item>
+<item>Komotini</item><item>Κομοτηνή</item>
+<item>Komanos</item><item>Κόμανος</item>
+<item>Korinthos</item><item>Κόρινθος</item>
+<item>Korinos</item><item>Κορινός</item>
+<item>Koropi</item><item>Κορωπί</item>
+
+<item>Krestena</item><item>Κρέστενα</item>
+<item>Kyparissia</item><item>Κυπαρίσσια</item>
+<item>Kyfaira</item><item>Κυφαιρά</item>
+<item>Kypseli (@Larissa)</item><item>Κυψέλη Λάρισσας</item>
+<item>Lamia</item><item>Λαμία</item>
+<item>Larissa</item><item>Λάρισα</item>
+<item>Latomeio (@Melissiatika)</item><item>Λατομείο (@Μελισσιάτικα)</item>
+<item>Lianokladi</item><item>Λειανοκλάδι</item>
+<item>Levadia</item><item>Λειβαδειά</item>
+<item>Livadia Kerkinis</item><item>Λεβαδειά Κερκίνης</item>
+<item>Leptokarya</item><item>Λεπτοκαρυά</item>
+<item>Lefka</item><item>Λεύκα</item>
+<item>Lefkothea Alistratis</item><item>Λευκοθέα Αλιστράτης</item>
+
+<item>Lilaia</item><item>Λιλαία</item>
+<item>Litochoro</item><item>Λιτόχωρο</item>
+<item>Magoula (Elefsina)</item><item>Μαγούλα (Ελευσίνα)</item>
+
+
+<item>Megara</item><item>Μέγαρα</item>
+<item>Megalo Spilaio</item><item>Μεγάλο Σπήλαιο</item>
+<item>Methoni</item><item>Μεθώνη</item>
+<item>Melia of Platykambos</item><item>Μελιά Πλατυκάμπου</item>
+<item>Melissiatika</item><item>Μελισσιάτικα</item>
+<item>Messini</item><item>Μεσσήνη</item>
+
+<item>Metamorfosi</item><item>Μεταμόρφωση</item>
+
+<item>Mouries</item><item>Μουριές</item>
+<item>Bralos</item><item>Μπράλος</item>
+<item>Myloi of Nafplio</item><item>Μύλοι Ναυπλίου</item>
+<item>Mykinai</item><item>Μυκήνες</item>
+<item>Naoussa</item><item>Νάουσα</item>
+<item>Nafplio</item><item>Ναύπλιο</item>
+<item>Chalkida shipyards (13th km)</item><item>Ναυπηγεια Χαλκίδας (χλμ 13)</item>
+<item>Nea Peramos</item><item>Νέα Πέραμος</item>
+<item>Nemea</item><item>Νεμέα</item>
+<item>Neo Petritsi</item><item>Νέο Πετρίτσι</item>
+<item>Neoi Poroi</item><item>Νέοι Πόροι</item>
+
+<item>Nerantziotissa</item><item>Νεραντζιώτισσα</item>
+<item>Xanthi</item><item>Ξάνθη</item>
+<item>Xechasmeni of Imathia</item><item>Ξεχασμένη Ημαθίας</item>
+<item>Xylokastro</item><item>Ξυλόκαστρο</item>
+<item>Xyniada</item><item>Ξυνιάδα</item>
+<item>Inoi</item><item>Οινόη</item>
+<item>Oinofyta</item><item>Οινόφυτα</item>
+<item>Olympia</item><item>Ολυμπία</item>
+<item>Orestiada</item><item>Ορεστιάδα</item>
+<item>Orfana</item><item>Ορφανά</item>
+<item>Paiania - Kantza</item><item>Παιανία - Κάντζα</item>
+<item>Palaeofarsalos</item><item>Παλαιοφάρσαλος</item>
+<item>Pallini</item><item>Παλλήνη</item>
+<item>Partheni</item><item>Παρθένι</item>
+<item>Patra</item><item>Πάτρα</item>
+<item>Piraeus</item><item>Πειραιάς</item>
+<item>Penteli</item><item>Πεντέλη</item>
+
+<item>Platy</item><item>Πλατύ</item>
+<item>Polykastro</item><item>Πολύκαστρο</item>
+<item>Promachonas</item><item>Προμαχώνας</item>
+<item>Ptolemaida</item><item>Πτολεμαΐδα</item>
+<item>Pythion of Didymoteicho</item><item>Πύθιο Διδυμοτείχου</item>
+<item>Pyrgos Ilias</item><item>Πύργος Ηλείας</item>
+<item>Rapsani</item><item>Ραψάνη</item>
+<item>Renti (Agiou Ioanni Renti)</item><item>Ρέντη</item>
+<item>Rizomylos (Ferres)</item><item>Ριζόμυλο Φερρών</item>
+<item>Rio</item><item>Ρίο</item>
+<item>Rodopolis</item><item>Ροδόπολις</item>
+<item>Rouf</item><item>Ρουφ</item>
+
+
+<item>Serres</item><item>Σέρρες</item>
+<item>Sidirokastro</item><item>Σιδηρόκαστρο</item>
+<item>Sindos</item><item>Σίνδος</item>
+
+
+<item>Skydra</item><item>Σκύδρα</item>
+
+<item>Soufli</item><item>Σουφλι</item>
+<item>Stavroupoli of Xanthi</item><item>Σταυρούπολη Ξάνθης</item>
+<item>Steno</item><item>Στενό</item>
+<item>Stefanovikeio</item><item>Στεφανοβίκειο</item>
+<item>Strymonas</item><item>Στρυμώνας</item>
+<item>Stylida</item><item>Στυλίδα</item>
+<item>Stirfaka</item><item>Στυρφακά</item>
+<item>Sfendali</item><item>Σφενδάλη</item>
+<item>Tanagra</item><item>Τανάγρα</item>
+<item>Tithorea</item><item>Τιθορέα</item>
+<item>Trikala</item><item>Τρίκαλα</item>
+<item>Tripoli</item><item>Τριπολη</item>
+<item>Tychero</item><item>Τυχερό</item>
+<item>Ferres</item><item>Φέρρες</item>
+
+<item>Florina</item><item>Φλώρινα</item>
+<item>Fotolivos</item><item>Φωτολίβος</item>
+<item>Chalki</item><item>Χάλκη</item>
+<item>Chalkida</item><item>Χαλκίδα</item>
+<item>Chiliomidi</item><item>Χιλιομίδι</item>
+<item>18th km Larissa-Volos</item><item>Χλμ 18 Λάρισας-Βόλου</item>
+<item>19th km Larissa-Volos</item><item>Χλμ 19 Λάρισας-Βόλου</item>
+<item>Hersos</item><item>Χέρσος</item>
+
     </string-array>
     
 </resources>
