@@ -32,12 +32,12 @@
         android:layout_height="fill_parent"
         android:stretchColumns="4"	
         >
-    
 	    <TextView 
 		    android:text="@string/depart"
 		    android:textStyle="bold"
 		    android:textColor="#D98719"
 		    android:layout_weight="1"
+		    android:paddingLeft="45dp"
 		    />
 	    <TextView
 		    android:text="@string/arrive"
