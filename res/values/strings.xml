@@ -17,7 +17,7 @@
     <string name="optmenu_sync_all">Sync All</string>
     <string name="optmenu_about">About</string>
     <string name="ctxmenu_delete_route">Delete</string>
-    <string name="no_routes">No Routes Saved</string>
+    <string name="no_routes">No routes saved. Press menu to add a new route.</string>
     
     <!-- New Route (RouteEdit.java) -->
     <string name="new_route">New Route</string>
@@ -46,7 +46,7 @@
     <string name="sortBy">Sort By</string>
     <string name="last_synced">Last sync:</string>
     <string name="copy_succesful">Text copied to clipboard</string>
-    <string name="copied_route_intro">Retrieved via android</string>
+    <string name="copied_route_intro">(Retrieved via Greece Train Schedules for android)</string>
     <string name="schedule">Train schedule:</string>
     <string name="sync_now">Sync now</string>
     
