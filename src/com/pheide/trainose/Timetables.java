@@ -440,28 +440,6 @@ public class Timetables extends ExpandableListActivity {
     /* Helpers */
     
     /**
-     * Helper to return a row in a Cursor as a hash map.
-     */
-//    TODO needed?
-    public HashMap<String,String> fetchAsHashMap(long timetableId) {
-    	Cursor timetableCursor = mTimetablesDbAdapter.fetch(timetableId);
-        this.startManagingCursor(timetableCursor);
-        
-    	HashMap<String,String> timetableMap = new HashMap<String,String>();
-    	String[] mapKeys = { TimetablesDbAdapter.KEY_DEPART , TimetablesDbAdapter.KEY_ARRIVE,
-    			TimetablesDbAdapter.KEY_DURATION, TimetablesDbAdapter.KEY_TRAIN,
-    			TimetablesDbAdapter.KEY_TRAIN_NUM, TimetablesDbAdapter.KEY_DELAY
-    	};
-    	for (int i = 0; i < mapKeys.length; i++) {
-    		String key = mapKeys[i];
-    		timetableMap.put(key, CursorHelper.getString(timetableCursor,key));
-    	}
-    	
-    	this.stopManagingCursor(timetableCursor);
-    	return timetableMap;
-    }
-    
-    /**
      * Given a managed cursor, return a single timetable row as a readable string.
      * 
      * @param Cursor A managed timetableCursor
@@ -504,8 +482,7 @@ public class Timetables extends ExpandableListActivity {
      */
    protected void copyTextToClipboard(String text) {
 	   // First add ad for this app
-	   text += "\n(" +  this.getText(R.string.copied_route_intro)
-	   		+ " " +  this.getText(R.string.app_name) + ")"; 
+	   text += "\n" +  this.getText(R.string.copied_route_intro); 
 	   
 	   ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
 	   clipboard.setText(text);
