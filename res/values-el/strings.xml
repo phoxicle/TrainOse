@@ -17,7 +17,7 @@
     <string name="optmenu_sync_all">Συγχρονισμός όλων</string>
     <string name="optmenu_about">Περί</string>
     <string name="ctxmenu_delete_route">Διαγραφή</string>
-    <string name="no_routes">Καμία διαδρομή</string>
+    <string name="no_routes">Δεν υπάρχει αποθηκευμένη διαδρομή. Πατήστε menu για προσθήκη.</string>
     
     <!-- New Route (RouteEdit.java) -->
     <string name="new_route">Νέα διαδρομή</string>
@@ -46,7 +46,7 @@
     <string name="sortBy">Ταξινόμηση κατά</string>
     <string name="last_synced">Προηγούμενος συγχρονισμός:</string>
     <string name="copy_succesful">Έγινε αντιγραφή κειμένου</string>
-    <string name="copied_route_intro">Ανακτηθεί από android</string>
+    <string name="copied_route_intro">(Ανακτηθεί από την εφαρμογή Δρομολόγια Τρένου Ελλάδος για android)</string>
     <string name="schedule">Δρομολόγιο τρένου:</string>
     <string name="sync_now">Συγχρονίστε τώρα</string>
     
